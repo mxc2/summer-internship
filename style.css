@@ -1,0 +1,319 @@
+* {box-sizing:border-box;}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+    
+    
+}
+#container{
+    background-image: url('img/taust.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+a:hover{
+    text-decoration: underline;
+}
+#header{
+    height: 11vh;
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0px 15px 0px;
+    font-size: 30px;
+    /* color: white; */
+    text-decoration: underline solid transparent;
+    transition: text-decoration 500ms ease;
+    font-family: "Ubuntu", sans-serif;
+    /* color: rgb(255, 255, 255); */
+}
+.fa-question-circle{
+    margin-right: 5px;
+}
+#head2{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+
+
+
+#section1{
+    min-height: 89vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+}
+#info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    font-size: 45px;
+}
+
+
+#inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    /* padding: 5px 75px 30px 75px; */
+    background-color: rgba(71, 67, 65, 0.8);
+}
+#head-input{
+    background-color: rgb(35, 161, 87);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+#form{
+    padding: 30px 60px 30px 60px;
+}
+input{
+    border: none;
+    box-shadow: inset 0 0 10px #1f201f9c;
+    padding: 10px 5px 10px 15px;
+    margin: 5px 10px 5px 10px;
+}
+input:focus{
+    outline: 2px solid;
+    outline-color: rgba(43, 163, 83, 0.829);
+}
+input[type=number]{
+    width: 125px;
+}
+input[type=text]{
+    width: 200px;
+}
+input[type=submit]{
+    font-family: inherit;
+    font-size: 15px;
+    width: 100%;
+    background-color: rgb(65, 170, 109);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
+    margin-top: 20px;
+}
+input[type=submit]:hover{
+    background-color: rgb(35, 161, 87);
+    cursor: pointer;
+}
+#scroll{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-shape-divider-bottom-1623233967 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+.custom-shape-divider-bottom-1623233967 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 72px;
+}
+.custom-shape-divider-bottom-1623233967 .shape-fill {
+    fill: #EAF5E3;
+}
+
+
+
+
+#section2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+    background-image: url('img/taustfirmad.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+#logos{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+
+
+#section3{
+    padding-bottom: 30px;
+    padding-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(234, 245, 227);
+}
+#procontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.pros{
+    width: 25%;
+    max-width: 375px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 20px 30px 60px 30px;
+    padding: 15px;
+    background-color: rgb(251, 255, 252);
+    border-radius: 20px;
+    box-shadow: -10px 10px #e2e9e0;
+}
+.h-pros{
+    margin-bottom: 5px;
+    margin-top: 25px;
+}
+.txt-pros{
+    color:rgb(82, 87, 84);
+    text-align: center;
+    max-width: 300px;
+    line-height: 2;
+    font-size: 17px;
+}
+.pic-pros{
+    margin-top: 20px;
+}
+
+#section4{
+    background-color: rgb(200, 223, 220);
+    height: auto;
+    padding: 30px 50px 60px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:rgb(53, 59, 58);
+}
+
+.accordion{
+    background-color: #eee;
+    color: rgb(99, 121, 109);
+    cursor: pointer;
+    padding: 18px;
+    margin-top: 2px;
+    width: 70%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-size: 20px;
+}
+.active, .accordion:hover{
+    background-color: #ccc;
+}
+.panel{
+    padding: 0 18px;
+    width: 70%;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+
+
+
+#section10{
+    min-height: 93vh;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#enteredsize{
+    width: 85%;
+    padding: 0px 40px;
+    background-color: #dee8ec;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+.row1{background-color: #c8dbe4 !important; font-weight: normal !important;}
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0px;
+    height: 60px;
+    width: 85%;
+    background-color: #e2e9ec;
+}
+.cell{padding-left: 15px;}
+.first{width: 15%; font-weight: bold;}.second{width: 5%;}.third{width: 20%;}.fourth{width: 20%;}.fifth{width: 8%;}.sixth{width: 16%; font-weight: bold;}.seveth{width: 16%;}
+.vormista{
+    background-color: rgb(0, 197, 0);
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 15px;
+    width: 100%;
+    color: white;
+}
+.vormista:hover{
+    background-color: rgb(0, 104, 0);
+    cursor: pointer;
+}
+
+
+
+
+#footer{
+    background-color:rgb(253, 253, 250);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:rgb(105, 107, 106);
+}
+#contacts{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+#tel{margin-left: 30px; color:#444;}#mail{margin-right: 30px; color:#444;}
+#copyright{
+    width: 100%;
+    background-color: rgb(95, 96, 99);
+    color: white;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-envelope, .fa-phone{color: rgb(164, 209, 199);}
