@@ -36,8 +36,8 @@ if(isset($_POST["submit"])){
 
     <section id="section1">
         <div id="info">
-            <h1>Lööklause - proov3</h1>
-            <p>Selgitav tekst</p>
+            <h1>Iga sekund pannakse teele rohkem kui 3000 pakki</h1>
+            <h3>Meie aitame teil saata pakke nii odavalt kui võimalik</h3>
         </div>
         <div id="inputs">
             <div id="head-input"><h2>Sisesta andmed siia</h2></div>

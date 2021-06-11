@@ -272,7 +272,7 @@ input[type=submit]:hover{
 .cell{padding-left: 15px;}
 .first{width: 15%; font-weight: bold;}.second{width: 5%;}.third{width: 20%;}.fourth{width: 20%;}.fifth{width: 8%;}.sixth{width: 16%; font-weight: bold;}.seveth{width: 16%;}
 .vormista{
-    background-color: rgb(0, 197, 0);
+    background-color: rgb(56, 177, 106);
     border: none;
     padding: 15px;
     border-radius: 15px;
