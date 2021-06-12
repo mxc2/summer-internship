@@ -1,0 +1,105 @@
+td{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  
+}
+
+th {
+  padding-top: 12px;
+  padding-left:12px;
+  padding-right:12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+
+.test {
+	font-size: 16px;
+}
+
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-size{
+	padding-left:5%;
+	padding-right:5%;
+	display:grid;
+	align-content: center;
+}
+
+.center-text{
+	justify-content: center;
+	margin: auto;
+	width: 90%;
+	display: flex;
+}
+
+.center-input{
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+  justify-content: center;
+}
+
+/*Text sizes and css */
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/*Button sizes and css*/
+input[type=submit] {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.green-color{
+	color: green;
+	background-color: #04AA6D;
+}
+
+.red-color{
+	color: red;
+	background-color: #aa0404;
+}
+
+.failure{
+	color: red;
+}
+
+.correct{
+	color: green;
+}

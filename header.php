@@ -15,6 +15,6 @@
 <body>
 <div id="container">
 <div id="header">
-    <div id="head1"><a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika><img src="img/logo.png" alt="Logo" width="300"></a></div>
+    <div id="head1"><a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika><img src="img/logo2.png" alt="Logo" width="300"></a></div>
     <div id="head2"><a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4"><i class="fa fa-question-circle"></i>Info</a></div>
 </div>

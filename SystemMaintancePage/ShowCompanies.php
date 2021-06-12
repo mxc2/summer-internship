@@ -3,68 +3,34 @@
   require("../../../config.php");
   //kui kasutaja on vormis andmeid saatnud, siis salvestame andmebaasi
   require("fnc_showcompanies.php");
+  
+  session_start();
+  
+  //Check if person logged in
+  if(!isset($_SESSION["userid"])){
+	  header("Location: index.php");
+  }
+  //Moving them out
+  if(isset($_GET["logout"])){
+	  session_destroy();
+	   header("Location: index.php");
+	   exit();
+  }
 
   $inputerror = "";
-  
-  if(isset($_POST["datasubmit"])){
-	if(empty($inputerror)){
-		writefilm($_POST["lat"], $_POST["lon"], $_POST["maakond"], $_POST["vald"], $_POST["linn"], $_POST["aadress"], $_POST["postiindeks"], $_POST["keskus"], $_POST["lisainfo"]);
-		$inputerror .= "Saadetud ";
-	}
-  }
 
-if(isset($_POST["datadelete"])){
-	if(empty($inputerror)){
-		OmnivaDataDelete($_POST["id"]);
-		$inputerror .= "Kustutatud";
-	}
-  }
 ?>
 <!DOCTYPE html>
-<style>
-.center {
-  margin: auto;
-  width: 90%;
-  padding: 10px;
-  justify-content: center;
-}
-.center-text{
-	justify-content: center;
-	margin: auto;
-	width: 90%;
-	display: flex;
-}
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-/* Style the submit button */
-input[type=submit] {
-  width: 100%;
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}-
-
-/* Add a background color to the submit button on mouse-over */
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-</style>
 <html>
+<head>
+	<link rel="stylesheet" href="styles.css">
+</head>
 <body>
 <form>
 
+<!-- LINK TO MAIN PAGE -->
+<div class="center-text"><p><a href="home.php">Avalehele</a></p></div>
+<hr>
 
 <!-- TITLE -->
 <div class="center-text" id="OmnivaOutput">
@@ -93,11 +59,40 @@ input[type=submit]:hover {
 <br>
 <br>
 <!-- Output from fnc_showcompanies.php the transport companies info from database -->
-<div class="center" id="OmnivaOutput">
+<div class="center table-size" id="OmnivaOutput">
     <?php 
       echo OmnivaOutput(); 
     ?>
 </div>
+
+<div class="center table-size" id="OmnivaOutput">
+    <?php 
+      echo ItellaOutput(); 
+    ?>
+</div>
+
+ <?php
+        if(array_key_exists('button1', $_POST)) {
+            button1();
+        }
+        else if(array_key_exists('button2', $_POST)) {
+            button2();
+        }
+        function button1() {
+            echo OmnivaOutput(); 
+        }
+        function button2() {
+            echo "This is Button2 that is selected";
+        }
+    ?>
+	
+<form method="post">
+        <input type="submit" name="button1"
+                class="button" value="Button1" />
+          
+        <input type="submit" name="button2"
+                class="button" value="Button2" />
+    </form>
 
 <div class="center-text">
 	<p><a href="OmnivaDataMaintance.php">Muuda andmebaasis olevaid andmeid</a></p>
