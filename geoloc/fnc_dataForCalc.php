@@ -37,10 +37,11 @@ return $km;
 }
 //Finds the nearest parcel machine to the user input
 function dataForCalc($location, $company) {
-
+	
 	//Converts user input to coordinates
 	  $userStartLat = geoCodeFinder($location)[0];
 	  $userStartLon = geoCodeFinder($location)[1];
+
 	  if ($company =="omniva_machines"){
 		  $companyid = "omniva_id";
 	  }else{
@@ -93,7 +94,7 @@ function dataForCalc($location, $company) {
 		  // $notice .= "\n" .'<th>distanceToCompare</th>';
 		  // $notice .= "\n" .'<th>distance</th>';
 		  // $notice .= "</tr>\n" .$lines ."</table>\n";
-	  }
+	  
 	  //$data = $distanceToCompare; //array($nearestID, $distanceToCompare);
 	   if ($distanceToCompare < 1){
 		  $distanceToCompare = round($distanceToCompare*1000) ." m";
@@ -107,7 +108,9 @@ function dataForCalc($location, $company) {
 	  $stmt->close();
 	  $conn->close();
 	  return $data;
-  }
+}
+
+}
   
  function getParcelAddress($parcel_ID, $company){
 	 //echo $parcel_ID;
@@ -187,4 +190,66 @@ function dataForCalc($location, $company) {
   //
   return $data;
  }
+ 
+ function readresults($data){
+	
+    $userA = $_SESSION['a'];
+    $userB = $_SESSION['b'];
+    $userC = $_SESSION['c'];
+
+    $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+
+    $stmt = $conn->prepare("SELECT pakid_id, firma, suurus, max_kaal, hind FROM pakid WHERE 
+    '$userA'<a AND '$userB'<b AND '$userC'<c OR 
+    '$userA'<a AND '$userC'<b AND '$userB'<c OR 
+    '$userB'<a AND '$userC'<b AND '$userA'<c OR 
+    '$userB'<a AND '$userA'<b AND '$userC'<c OR 
+    '$userC'<a AND '$userA'<b AND '$userB'<c OR 
+    '$userC'<a AND '$userB'<b AND '$userA'<c OR
+	('$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c)
+    ORDER BY hind");
+    echo $conn->error;
+
+    $stmt->bind_result($pakid_id, $firma, $suurus, $max_kaal, $hind);
+    $stmt->execute();
+	
+
+	//
+    $resultshtml = "";
+    while($stmt->fetch()){
+                
+        $resultshtml .= "<tr><td>" .$firma ."</td><td>" .$suurus ."</td><td>";
+        if($firma == "Omniva"){
+            $resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
+            ."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
+            ."</td><td>";
+        }else if($firma == "Itella"){
+            $resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
+            ."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
+            ."</td><td>";
+        }else if($firma == "DPD"){
+            $resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
+            ."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
+            ."</td><td>";
+        }else{
+            $resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
+        }
+
+        $resultshtml .= $max_kaal ." kg </td><td>" .$hind ." € </td>";
+
+        if($firma == "Omniva"){
+            $resultshtml.="<td><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Vormista pakk</a></button></td>";
+        }else if($firma == "Itella"){
+            $resultshtml.="<td><button class=vormista><a href=https://my.smartpost.ee/new_shipment/>Vormista pakk</a></button></td>";
+        }else if($firma == "DPD"){
+            $resultshtml.="<td><button class=vormista><a href=https://telli.dpd.ee/>Vormista pakk</a></button></td>";
+        }else{
+            $resultshtml .= "<td>ERROR</td></tr>";
+        }
+
+    }
+    $stmt->close();
+    $conn->close();
+    return $resultshtml;
+}
 ?>

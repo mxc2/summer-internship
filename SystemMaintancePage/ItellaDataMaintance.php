@@ -1,7 +1,5 @@
 <?php
-  //loeme andmebaasi login info muutujad
   require("../../../config.php");
-  //kui kasutaja on vormis andmeid saatnud, siis salvestame andmebaasi
   require("fnc_showcompanies.php");
   
   session_start();
@@ -58,13 +56,13 @@
 	
 	//IF DATA CORRECTLY ENTERED THEN SEND IT TO fnc_showcompanies.php
 	if(empty($inputerror)){
-		AddOmniva($_POST["postiindeks"], $_POST["keskus"], $_POST["maakond"], $_POST["vald"], $_POST["linn"], $_POST["aadress"], $_POST["number"], $_POST["lon"], $_POST["lat"], $_POST["lisainfo"]);
+		AddItella($_POST["lat"], $_POST["lon"], $_POST["maakond"], $_POST["vald"], $_POST["linn"], $_POST["aadress"], $_POST["postiindeks"], $_POST["keskus"], $_POST["lisainfo"]);
 		$correctadd .= "Sisestatud andmed on lisatud andmebaasi. ";
 	}
   }
   
   $SelectedMachine = "";
-  $ChosenLocation = OmnivaChoose($SelectedMachine);
+  $ChosenLocation = ItellaChoose($SelectedMachine);
   
   //CHECK IF DATA IS CORRECTLY ENTERED AND IF NOT SEND AN ERROR
   if(isset($_POST["datadelete"])){
@@ -74,7 +72,7 @@
 	
 	//IF DATA CORRECTLY ENTERED THEN SEND IT TO fnc_showcompanies.php
 	elseif(empty($inputerror)){
-		OmnivaDataDelete($_POST["selectedparcelmachine"]);
+		ItellaDataDelete($_POST["selectedparcelmachine"]);
 		$correctdelete .= "Valitud pakiautomaat on andmebaasis ära kustutatud.";
 	}
   }
@@ -91,7 +89,7 @@ require("header.php");
 
 <!-- TITLE -->
 <div class="center-text">
-	<h1>Omniva pakiautomaatide asukohtade muutmine</h1>
+	<h1>Itella pakiautomaatide asukohtade muutmine</h1>
 </div>
 
 <br>
@@ -120,20 +118,17 @@ require("header.php");
 		<label for="keskus">Keskuse nimi*</label>
 		<input type="text" name="keskus" id="keskus" placeholder="Näiteks Elva Turuplatsi Coop Konsumi pakiautomaat">
 		
-		<label for="maakond">Maakonna nimi*</label>
+		<label for="maakond">Maakonna nimi</label>
 		<input type="text" name="maakond" id="maakond" placeholder="Näiteks Tartu maakond või Läänemaa">
 		
-		<label for="vald">Valla nimi*</label>
+		<label for="vald">Valla nimi</label>
 		<input type="text" name="vald" id="vald" placeholder="Näiteks Elva vald või Haapsalu linn">
 		
 		<label for="linn">Linna, küla, aleviku või linnaosa nimi*</label>
 		<input type="text" name="linn" id="linn" placeholder="Näiteks Elva linn või Haabneeme alevik">
 		
-		<label for="aadress">Aadress (ilma numbrita)*</label>
-		<input type="text" name="aadress" id="aadress" placeholder="Näiteks Rohuneeme tee">
-		
-		<label for="number">Aadresi number*</label>
-		<input type="number" name="number" id="number" placeholder="Näiteks 23">
+		<label for="aadress">Aadress*</label>
+		<input type="text" name="aadress" id="aadress" placeholder="Näiteks Rohuneeme tee 32">
 		
 		<label for="postiindeks">Postiindeks*</label>
 		<input type="number" name="postiindeks" id="postiindeks" placeholder="Näiteks 96047">
@@ -176,6 +171,7 @@ require("header.php");
 </form>
 </body>
 </html>
+
 <style>
 /* Button color when mouse hover */
 input[type=submit]:hover {

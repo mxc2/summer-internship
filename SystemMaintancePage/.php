@@ -1,6 +1,5 @@
 <?php
   session_start();
-  
   //Check if person logged in
   if(!isset($_SESSION["userid"])){
 	  header("Location: index.php");
@@ -9,9 +8,8 @@
   if(isset($_GET["logout"])){
 	  session_destroy();
 	   header("Location: index.php");
-	   exit();
+	   //exit();
   }
-
 ?>
 <head>
 	<link rel="stylesheet" href="styles.css">
@@ -21,8 +19,8 @@
 <!-- PAGE LOGO -->
 <div class="center-logo"> <img src="../img/logo.png" alt="Logo Parimautomaat"width=300>
 
-<!-- Links to other pages -->
 <form>
+<!-- Links to other pages -->
 	<ul>
 		<li> <a href="ShowCompanies.php">Vaata / Muuda andmebaasis olevaid pakiautomaate </a></li>
 		<li><a href="ParcelMachineDoorSizes.php">Halda pakiautomaatide uste suurusi</a></li>

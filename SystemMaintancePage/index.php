@@ -1,20 +1,17 @@
 <?php
-  //loeme andmebaasi login ifo muutujad
   require("../../../config.php");
-  require("fnc_common.php");
   require("fnc_user.php");
-  //käivitan sessiooni
-  session_start();
   
-  //$username = "Marcus-Indrek Simmer";´
+  session_start();
+
   $email = "";
   
   $emailerror = "";
   $passworderror = "";
   $notice = "";
+  //Login checks, email check baked in
   if(isset($_POST["submituserdata"])){
 	  if (!empty($_POST["emailinput"])){
-		//$email = test_input($_POST["emailinput"]);
 		$email = filter_var($_POST["emailinput"], FILTER_SANITIZE_EMAIL);
 		if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$email = filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -25,6 +22,7 @@
 		  $emailerror = "Palun sisesta e-postiaadress!";
 	  }
 	  
+	  //Check that password has been entered and that it isnt too short
 	  if (empty($_POST["passwordinput"])){
 		$passworderror = "Palun sisesta salasõna!";
 	  } else {
@@ -33,14 +31,27 @@
 		  }
 	  }
 	  
+	  //If no errors, then try to log in
 	  if(empty($emailerror) and empty($passworderror)){
 		  $notice = signin($email, $_POST["passwordinput"]);
 	  }
   }
 
 ?>
+<html>
+<head>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-  <div class="centered">
+<br>
+<br>	
+  
+<!-- PAGE LOGO -->
+<div class="center-logo"> <img src="../img/logo.png" alt="Logo Parimautomaat"width=300>
+
+<!-- Login form -->
+<div>
   <h3>Logi sisse</h3>
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <label for="emailinput">E-mail (kasutajatunnus):</label><br>
@@ -58,17 +69,32 @@
 </body>
 </html>
 <style>
-.centered {
-  border-radius: 25px;
-  background: #73AD21;
-  padding: 20px; 
-  width: 180px;
-  height: 200px; 
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-  background-color: grey;
+.center-input {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  justify-content: center;
+}
+
+/*Text sizes and css */
+input[type=email], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/*Text sizes and css */
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 </style>

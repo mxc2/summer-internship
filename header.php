@@ -9,12 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
     <title>Projekt</title>
 </head>
 <body>
 <div id="container">
-<div id="header">
-    <div id="head1"><a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika><img src="img/logo2.png" alt="Logo" width="300"></a></div>
-    <div id="head2"><a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4"><i class="fa fa-question-circle"></i>Info</a></div>
-</div>
+<nav>
+    <div id="head1">
+        <a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika>
+            <img src="img/logoNew.png" alt="Logo" width="300">
+        </a>
+    </div>
+    <div id="head2">
+        <a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4">
+            <i class="fa fa-question-circle"></i>
+            Info
+        </a>
+    </div>
+<nav>

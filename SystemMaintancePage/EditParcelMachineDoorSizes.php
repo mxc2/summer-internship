@@ -1,7 +1,5 @@
 <?php
-  //loeme andmebaasi login info muutujad
   require("../../../config.php");
-  //kui kasutaja on vormis andmeid saatnud, siis salvestame andmebaasi
   require("fnc_showcompanies.php");
   
   session_start();
@@ -74,6 +72,7 @@
 	}
   }
 
+require("header.php");
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -129,7 +128,7 @@
 		<label for="hind">Hind</label>
 		<input type="number" name="hind" id="hind" placeholder="Näiteks 2.89">
 		
-		<input type="submit" class="green-color" name="datasubmit" value="Sisesta">
+		<input type="submit" class="green-color submit" name="datasubmit" value="Sisesta">
 	</form>
 </div>
 </div>
@@ -142,7 +141,7 @@
 			<label for="DeleteID">Sisesta ID, mis rida informatsiooni soovite kustutada</label>
 			<input type="number" name="DeleteID" id="DeleteID" placeholder="Näiteks 3">
 			
-			<input type="submit" onclick="return confirm('Olete kindel et soovite KUSTUTADA valitud pakiautomaadi?');" class="red-color" name="datadelete" value="Kustuta">
+			<input type="submit" onclick="return confirm('Olete kindel et soovite KUSTUTADA valitud pakiautomaadi?');" class="red-color submit" name="datadelete" value="Kustuta">
 		</form>
 		<div class="failure"><p><?php echo $inputerrordelete; ?></p></div>
 		<div class="correct"><p><?php echo $correctdelete; ?></p></div>

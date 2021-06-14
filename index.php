@@ -31,13 +31,47 @@ if(isset($_POST["submit"])){
     }
 }
 
-    require("header.php");
-    ?>
+?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="script.js" defer></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+    <title>Projekt</title>
+</head>
+
+
+<body>
+<div id="container">
+    <nav>
+        <div id="head1">
+            <a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika>
+                <img src="img/logoNew.png" alt="Logo" width="300">
+            </a>
+        </div>
+        <div id="head2">
+            <a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4">
+                <i class="fa fa-question-circle"></i>
+                Info
+            </a>
+        </div>
+    <nav>
+
+
+    
     <section id="section1">
         <div id="info">
             <h1>Iga sekund pannakse teele rohkem kui 3000 pakki</h1>
-            <h3>Meie aitame teil saata pakke nii odavalt kui võimalik</h3>
+            <h3>Võrdleme Teile lähedal asuvate teenustepakkujate hindu vastavalt Teie paki suurusele ja leiame kõige odavamad pakkumised</h3>
         </div>
         <div id="inputs">
             <div id="head-input"><h2>Sisesta andmed siia</h2></div>
@@ -62,9 +96,7 @@ if(isset($_POST["submit"])){
         <div id="scroll">
             <h3>Scrolli, et näha rohkem</h3>
             <i class="fa fa-angle-double-down"></i>
-        </div>
 
-        <div class="custom-shape-divider-bottom-1623233967">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
                 <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
@@ -163,17 +195,8 @@ if(isset($_POST["submit"])){
     <div class="panel">
         <p>Kahjuks on praegusel hetkel võimalik võrrelda ainult eestisiseseid teenusepakkujaid: Omniva, Itella ja DPD. Juhul kui soovite lisada valikusse veel mõne firma, palun teavitage meid läbi e-maili info@parimautomaat.ee</p>
     </div>
-	
-    <button class="accordion">Miks parimautomaat.ee ei paku mulle ühtegi teenusepakkujat?</button>
-    <div class="panel">
-        <p>Võimalik, et süsteemis on tekkinud viga. Vabandame! Palun võtke meiega ühendust e-maili teel info@parimautomaat.ee ja selgitame vea välja.</p>
-    </div>
-	
-    <button class="accordion">Mida teha kui teenus ei tööta?</button>
-    <div class="panel">
-        <p>Vabandame ebamugavuste pärast! Kui teenus ei tööta ka 5 minuti pärast, siis palume pöörduda meie poole ja teavitada sellest läbi e-maili info@parimautomaat.ee<!-- <a href="mailto:info@parimautomaat.ee">info@parimautomaat.ee</a> --></p>
-    </div>
-    
+
+
     <button class="accordion">Kuhu pöörduda probleemide juhul?</button>
     <div class="panel">
         <p>Palun kirjutage meile info@parimautomat.ee. Võtame Teiega ühendust nii kiiresti kui võimalik.</p>

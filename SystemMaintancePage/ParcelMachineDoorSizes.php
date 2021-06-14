@@ -16,6 +16,8 @@
 	   header("Location: index.php");
 	   exit();
   }
+  
+require("header.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,13 +27,14 @@
 <body>
 <form>
 
-<!-- LINK TO MAIN PAGE -->
-<div class="center-text"><p><a href="home.php">Avalehele</a></p></div>
-<hr>
-
 <!-- TITLE -->
 <div class="center-text" id="OmnivaOutput">
 	<h2>Pakiautomaatide uste suurused ja hind</h2>
+</div>
+
+<!-- Link to edit data -->
+<div class="center-text">
+	<p><a href="EditParcelMachineDoorSizes.php">Muuda andmebaasis olevaid andmeid</a></p>
 </div>
 
 <!-- Output from fnc_showcompanies.php the transport companies info from database -->
@@ -41,6 +44,7 @@
     ?>
 </div>
 
+<!-- Link to edit data -->
 <div class="center-text">
 	<p><a href="EditParcelMachineDoorSizes.php">Muuda andmebaasis olevaid andmeid</a></p>
 </div>

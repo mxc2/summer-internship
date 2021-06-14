@@ -1,7 +1,5 @@
 <?php
-  //loeme andmebaasi login info muutujad
   require("../../../config.php");
-  //kui kasutaja on vormis andmeid saatnud, siis salvestame andmebaasi
   require("fnc_showcompanies.php");
   
   session_start();
@@ -58,13 +56,13 @@
 	
 	//IF DATA CORRECTLY ENTERED THEN SEND IT TO fnc_showcompanies.php
 	if(empty($inputerror)){
-		AddOmniva($_POST["postiindeks"], $_POST["keskus"], $_POST["maakond"], $_POST["vald"], $_POST["linn"], $_POST["aadress"], $_POST["number"], $_POST["lon"], $_POST["lat"], $_POST["lisainfo"]);
+		AddDpd($_POST["lat"], $_POST["lon"], $_POST["maakond"], $_POST["vald"], $_POST["linn"], $_POST["aadress"], $_POST["postiindeks"], $_POST["keskus"], $_POST["lisainfo"]);
 		$correctadd .= "Sisestatud andmed on lisatud andmebaasi. ";
 	}
   }
   
   $SelectedMachine = "";
-  $ChosenLocation = OmnivaChoose($SelectedMachine);
+  $ChosenLocation = DpdChoose($SelectedMachine);
   
   //CHECK IF DATA IS CORRECTLY ENTERED AND IF NOT SEND AN ERROR
   if(isset($_POST["datadelete"])){
@@ -74,7 +72,7 @@
 	
 	//IF DATA CORRECTLY ENTERED THEN SEND IT TO fnc_showcompanies.php
 	elseif(empty($inputerror)){
-		OmnivaDataDelete($_POST["selectedparcelmachine"]);
+		DpdDataDelete($_POST["selectedparcelmachine"]);
 		$correctdelete .= "Valitud pakiautomaat on andmebaasis ära kustutatud.";
 	}
   }
@@ -91,7 +89,7 @@ require("header.php");
 
 <!-- TITLE -->
 <div class="center-text">
-	<h1>Omniva pakiautomaatide asukohtade muutmine</h1>
+	<h1>DPD pakiautomaatide asukohtade muutmine</h1>
 </div>
 
 <br>
@@ -101,6 +99,7 @@ require("header.php");
 	<br>
 	<p><a href="ShowCompanies.php">Vaadake andmeid</a></p>
 </div>
+
 
 <!-- Output variables, to show if there is an error -->
 <div class="failure center-text">
@@ -129,11 +128,8 @@ require("header.php");
 		<label for="linn">Linna, küla, aleviku või linnaosa nimi*</label>
 		<input type="text" name="linn" id="linn" placeholder="Näiteks Elva linn või Haabneeme alevik">
 		
-		<label for="aadress">Aadress (ilma numbrita)*</label>
-		<input type="text" name="aadress" id="aadress" placeholder="Näiteks Rohuneeme tee">
-		
-		<label for="number">Aadresi number*</label>
-		<input type="number" name="number" id="number" placeholder="Näiteks 23">
+		<label for="aadress">Aadress*</label>
+		<input type="text" name="aadress" id="aadress" placeholder="Näiteks Rohuneeme tee 32">
 		
 		<label for="postiindeks">Postiindeks*</label>
 		<input type="number" name="postiindeks" id="postiindeks" placeholder="Näiteks 96047">

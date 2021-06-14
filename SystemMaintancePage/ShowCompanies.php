@@ -18,7 +18,9 @@
   }
 
   $inputerror = "";
+  
 
+require("header.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,77 +28,72 @@
 	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<form>
-
-<!-- LINK TO MAIN PAGE -->
-<div class="center-text"><p><a href="home.php">Avalehele</a></p></div>
-<hr>
 
 <!-- TITLE -->
 <div class="center-text" id="OmnivaOutput">
 	<h2>Pakiautomaatide andmebaas</h2>
 </div>
 
-<!-- Select Company -->
+<!-- Info text -->
 <div class="center-text">
-	<p> <a href="ShowCompanies.php">Omniva</a>  <a href="ManageAccount.php">Itella</a>  <a href="ManageAccount.php">DPD</a></p>
+	<p>Mis transpordifirma andmeid soovite VAADATA?</p>
+</div>
+	
+<!-- Select Company -->
+<div class="center-text" id="AndmeteSisestamine">
+	<form method="POST">
+		<input type="submit" name="OmnivaClick" value="Omniva">
+		<input type="submit" name="DpdClick" value="DPD">
+		<input type="submit" name="ItellaClick" value="Itella">
+	</form>
 </div>
 
 <br>
 
 <!-- PARCEL COMPANY TITLE -->
-<div class="center-text" id="OmnivaOutput">
-	<h2>Omniva pakiautomaadid</h2>
-</div>
-<br>
-
-
-<!-- Clicking on link brings person to spot where you add information to database -->
 <div class="center-text">
-	<div><a href="OmnivaDataMaintance.php">Muuda andmebaasis olevaid andmeid</a></div>
+	<p>Mis transpordifirma andmeid soovite MUUTA?</p>
 </div>
 
-<br>
-<br>
-<!-- Output from fnc_showcompanies.php the transport companies info from database -->
-<div class="center table-size" id="OmnivaOutput">
-    <?php 
-      echo OmnivaOutput(); 
-    ?>
-</div>
-
-<div class="center table-size" id="OmnivaOutput">
-    <?php 
-      echo ItellaOutput(); 
-    ?>
-</div>
-
- <?php
-        if(array_key_exists('button1', $_POST)) {
-            button1();
-        }
-        else if(array_key_exists('button2', $_POST)) {
-            button2();
-        }
-        function button1() {
-            echo OmnivaOutput(); 
-        }
-        function button2() {
-            echo "This is Button2 that is selected";
-        }
-    ?>
+<!-- Buttons for user to select what company's data they want to watch -->
+<div class="center-text">
+	<form action="OmnivaDataMaintance.php">
+		<input type="submit" value="Omniva" />
+	</form>
 	
-<form method="post">
-        <input type="submit" name="button1"
-                class="button" value="Button1" />
-          
-        <input type="submit" name="button2"
-                class="button" value="Button2" />
-    </form>
-
-<div class="center-text">
-	<p><a href="OmnivaDataMaintance.php">Muuda andmebaasis olevaid andmeid</a></p>
+	<form action="DPDDataMaintance.php">
+		<input type="submit" value="DPD" />
+	</form>
+	
+	<form action="ItellaDataMaintance.php">
+		<input type="submit" value="Itella" />
+	</form>
 </div>
+
+<br>
+<br>
+<br>
+
+<!-- Table Output -->
+<div class="center table-size">
+    <?php
+    if(isset($_POST['OmnivaClick'])) {
+		echo "<h3 align=center>Omniva pakiautomaadid </h3> ";
+        echo OmnivaOutput();
+    }
+	if(isset($_POST['DpdClick'])) {
+		echo "<h3 align=center>DPD pakiautomaadid </h3> ";
+        echo DpdOutput();
+    }
+    if(isset($_POST['ItellaClick'])) {
+		echo "<h3 align=center>Itella pakiautomaadid </h3> ";
+		echo ItellaOutput();
+    }
+
+    ?>
+</div>
+
+<br>
 
 </body>
 </html>
