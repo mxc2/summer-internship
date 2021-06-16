@@ -23,3 +23,15 @@ Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames o
 
 •Css v.3
 
+### Projektise panustajad
+Marcus-Indrek Simmer
+Stella-Marii Tamme
+Margen Peterson
+Margarita Zahharova
+
+### Paigaldusjuhised
+Et lehte paigaldada enda lehele, soovitame me esiteks alustada andmebaasi koostamisega.
+
+Andmebaasi saab koostada kahe viisiga.
+1) Importi dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql phpMyAdminiga andmebaasi.
+2) 
