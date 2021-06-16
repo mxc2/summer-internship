@@ -1,15 +1,12 @@
 <?php
 session_start();
 $inputerror="";
-$LoadingMessage="";
 $a=null;
 $b=null;
 $c=null;
-$continue = null;
 $start="";
 $end="";
 if(isset($_POST["submit"])){
-	
     $a=$_POST["a"];
     $b=$_POST["b"];
     $c=$_POST["c"];
@@ -21,19 +18,21 @@ if(isset($_POST["submit"])){
     if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0){
         $inputerror .= "Mõõdud peavad olema suuremad kui 0! <br>";
     }
+	//*'$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c))
+
+	if(($a*$a) + ($b*$b) + ($c*$c) > (60*60) + (36*36) + (60*60)){
+        $inputerror .= "Kuller <br>";
+    }
     if(empty($_POST["start"]) or empty($_POST["end"])){
         $inputerror .= "Sisesta mõlemad aadressid! ";
     }
     if(empty($inputerror)){
-		$inputerror .= "Otsime teile lähimaid pakiautomaate...";
-		
         $_SESSION["a"] = $_POST["a"];
         $_SESSION["b"] = $_POST["b"];
         $_SESSION["c"] = $_POST["c"];
         $_SESSION["start"] = $_POST["start"];
         $_SESSION["end"] = $_POST["end"];
-		
-		$continue .= 1;
+        header("Location: results.php");
     }
 }
 
@@ -93,20 +92,9 @@ if(isset($_POST["submit"])){
                     <input type="text" id="start" name="start" placeholder="Narva mnt 127, Tallinn">
                     <label for="end"></label>
                     <input type="text" id="end" name="end" placeholder="Kivi 4, Tartu"><br>
-                    <input onclick="myFunction()" type="submit" name="submit" value="Leia parim pakiautomaat">					
-					
+                    <input type="submit" name="submit" value="Leia parim pakiautomaat">
+                    
                 </form>
-				<p><?php echo $LoadingMessage; 
-				if($continue == 1){
-					header( "refresh:1; url=results.php" );
-					echo '<div id="lock-modal"></div>';
-					echo '<div id="loading-circle"></div>';
-				}
-				?></p>
-				<script>function myFunction() {
-				  document.getElementById("lock-modal").style.display = "block";
-				  document.getElementById("loading-circle").style.display = "block";
-				}</script>
                 <p><?php echo $inputerror; ?></p>
             </div>
         </div>
@@ -179,7 +167,7 @@ if(isset($_POST["submit"])){
 	
 	<button class="accordion">Kas pakki on võimalik saata rahvusvaheliselt?</button>
     <div class="panel">
-        <p>Antud süsteem võimaldab saata pakke ainult Eestis.</p>
+        <p>Antud süsteem võimaldab saata pakki ainult Eestis.</p>
     </div>
 	
 	<button class="accordion">Kuidas saata mitut pakki korraga?</button>
@@ -246,9 +234,4 @@ if(isset($_POST["submit"])){
         }
     });
     }
-	
-	function myFunction() {
-	  document.getElementById("lock-modal").style.display = "block";
-	  document.getElementById("loading-circle").style.display = "block";
-	}
 </script>

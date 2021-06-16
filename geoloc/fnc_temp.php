@@ -5,8 +5,9 @@ $database = "if20_marcus_praktika";
 //$end = 'Kollane 14a, Tartu';//User input end address for calc
 //Converts user input to a processable coordinate
 function geoCodeFinder($input){
-	//echo $input;
-	$geocoder = new \OpenCage\Geocoder\Geocoder('5a7f44a78bf947aebdaaa1a484c50cfe');//<--API key neccessary for gecoding//API key2, for just in case('da0c24be00f44f3a8fcb4da9d7cd8d47'), another one 388d369f44d14ec39e73894df210035c 5a7f44a78bf947aebdaaa1a484c50cfe
+	
+	$geocoder = new \OpenCage\Geocoder\Geocoder('388d369f44d14ec39e73894df210035c');//<--API key neccessary for gecoding//API key2, for just in case('da0c24be00f44f3a8fcb4da9d7cd8d47'), another one 388d369f44d14ec39e73894df210035c
+
 	$result = $geocoder->geocode($input);
 	//print_r( $result);
 	if ($result && $result['total_results'] > 0) {
@@ -15,7 +16,7 @@ function geoCodeFinder($input){
 		$txt = json_encode([$first['geometry']['lat'], $first['geometry']['lng']]);	//Gets coordinate	
 		$txt = trim($txt, '[]');//Changes the coordinate to processable one
 		$coords = explode(',', $txt);
-		//print_r ($coords);
+		//print_r ($startCOORDs);
 
 		return $coords;
 		
@@ -41,9 +42,9 @@ return $km;
 //Finds the nearest parcel machine to the user input
 function dataForCalc($location, $company) {
 
-	 //echo geoCodeFinder($location)[0];
+	$data['var']=1;
 	//Converts user input to coordinates
-	if ((geoCodeFinder($location))!==null){
+	if(isset(geoCodeFinder($location)[0])){
 	  $userStartLat = geoCodeFinder($location)[0];
 	  $userStartLon = geoCodeFinder($location)[1];
 	  if ($company =="omniva_machines"){
@@ -86,15 +87,18 @@ function dataForCalc($location, $company) {
 	  $data['nearestID'] = $nearestID;
 	  $data['distance'] = $distanceToCompare;
 	  $data['company'] = $company;
+	  
 	  $stmt->close();
 	  $conn->close();
+	 
+
 	}else{
-		echo'<span style="font-size:30px;"> Aadressiga esines viga. </span>';
-
-		exit;
+		echo 'Viga andmete töötlemisel!';
+		$data['var']=0;
 	}
-
+	
 	  return $data;
+	  
   }
 //}
   
@@ -140,13 +144,12 @@ function dataForCalc($location, $company) {
 	  return $aadress;
  }
   function dataProcess($start, $end){
-
   //--------------------StartData----------------------------
   //Some data
+  if ($data['var']=0){
   $omnivaPropStart = dataForCalc($start, 'omniva_machines');
   $itellaPropStart = dataForCalc($start, 'itella');
   $dpdPropStart = dataForCalc($start, 'dpd');
-  
   //Getting id for the address
   $omnivaidStart = $omnivaPropStart['nearestID'];
   $dpdidStart = $dpdPropStart['nearestID'];
@@ -175,13 +178,16 @@ function dataForCalc($location, $company) {
   $data['omnivaAddressEnd'] = getParcelAddress($omnivaidEnd, 'omniva_machines');
   $data['dpdAddressEnd'] = getParcelAddress($dpdidStartEnd, 'dpd');
   $data['itellaAddressEnd'] = getParcelAddress($itellaidtEnd, 'itella');
-  
+  //
+  }else{
+  echo 'Viga andmete töötlemisel!';
   return $data;
-  
- }
+  }
+  }
 
  //Generating parcel sending cost for each company
  function readresults($data){
+	
     $userA = $_SESSION['a'];
     $userB = $_SESSION['b'];
     $userC = $_SESSION['c'];
@@ -200,19 +206,24 @@ function dataForCalc($location, $company) {
     echo $conn->error;
 
     $stmt->bind_result($pakid_id, $firma, $suurus, $max_kaal, $hind);
+	
     $stmt->execute();
-
-	//
-    $resultshtml = "<table cellpadding='0 30'>
-						<tr>
-							<th>Firma</th>
-							<th>Tähis</th>
-							<th>Kaugus algpunktist</th>
-							<th>Kaugus lõpp-punktist</th>
-							<th>Max kaal</th>
-							<th>Hind</th>
-							<th></th>
-						</tr>";
+	echo $firma;
+	$test = $suurus;
+	  $resultshtml = "";
+	$resultshtml .= $suurus;
+	if (!empty($resultshtml)){
+	gettype($test);
+  
+	$resultshtml .= "<tr>
+            <th>Firma</th>
+            <th>Suurus</th>
+            <th>Algpunktist</th>
+            <th>Lõpp-punktist</th>
+            <th>Max kaal</th>
+            <th>Hind</th>
+            <th></th>
+        </tr>";
     while($stmt->fetch()){
                 
         $resultshtml .= "<tr><td>" .$firma ."</td><td>" .$suurus ."</td><td>";
@@ -232,7 +243,7 @@ function dataForCalc($location, $company) {
             $resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
         }
 
-        $resultshtml .= $max_kaal ."kg </td><td>" .$hind ."€ </td>";
+        $resultshtml .= $max_kaal ." kg </td><td>" .$hind ." € </td>";
 
         if($firma == "Omniva"){
             $resultshtml.="<td><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Vormista pakk</a></button></td>";
@@ -243,26 +254,13 @@ function dataForCalc($location, $company) {
         }else{
             $resultshtml .= "<td>ERROR</td></tr>";
         }
-
+		return $resultshtml;
     }
-	if ($resultshtml=="<table cellpadding='0 30'>
-						<tr>
-							<th>Firma</th>
-							<th>Tähis</th>
-							<th>Kaugus algpunktist</th>
-							<th>Kaugus lõpp-punktist</th>
-							<th>Max kaal</th>
-							<th>Hind</th>
-							<th></th>
-						</tr>"){
-							$resultshtml = "<table cellpadding='0 30'><tr> <th>Firma</th></tr>";
-							$resultshtml .= "<tr><td> siin on omniva kuller, siin on dpd kuller, siin on itella kuller";
-						}
-	$resultshtml .= "</table>";
-	$stmt->close();
+	}else{
+		'jou';
+	}
+    $stmt->close();
     $conn->close();
-	return $resultshtml;
-    
     
 }
 ?>

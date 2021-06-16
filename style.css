@@ -1,4 +1,34 @@
 * {box-sizing:border-box;}
+/* Animation for searching */
+#loading-circle {
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 120px;
+  height: 120px;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s ease-in infinite;
+  z-index:99999;
+}
+
+#lock-modal {
+  background-color: black;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index:9999;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -36,13 +66,18 @@ a:hover{
 #navResults{
     border-bottom: 2px solid #dfe7f5;
     height: 100px;
-
-    /* border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #5b7c9f, rgba(0, 0, 0, 0)) 100% 1; */
+}
+#navIndex{
+    height: 100px;
 }
 #head1, #head1results{
     position: absolute;
-    left: 40%;
+    left: 0;
     top: 20px;
+    right: 0;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 300px;
 } 
 #head2, #head2results{
     position: absolute;
@@ -78,7 +113,7 @@ a:hover{
 
 
 #section1{
-    min-height: 89vh;
+    min-height: calc(100vh - 100px);;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -91,6 +126,8 @@ a:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 19px;
+    text-align: center;
 }
 h1{
     font-size: 45px;
@@ -102,6 +139,7 @@ h1{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     border-radius: 20px;
     /* padding: 5px 75px 30px 75px; */
     background-color: rgba(71, 67, 65, 0.8);
@@ -118,7 +156,7 @@ h1{
     height: 100%;
     display: flex;
     justify-content: center;
-    border-radius: 5px;
+    border-radius: 5px 5px 0px 0px;
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048),
     0 12.5px 10px rgba(0, 0, 0, 0.06),
@@ -169,7 +207,7 @@ input[type=submit]:hover{
     align-items: center;
 }
 
-svg {
+.custom-shape-divider-bottom-1623233967 {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -178,16 +216,15 @@ svg {
     line-height: 0;
     transform: rotate(180deg);
 }
-svg svg {
+.custom-shape-divider-bottom-1623233967 svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
     height: 72px;
 }
-svg .shape-fill {
+.custom-shape-divider-bottom-1623233967 .shape-fill {
     fill: #EAF5E3;
 }
-
 
 
 
@@ -196,13 +233,11 @@ svg .shape-fill {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     padding-bottom: 50px;
-    /*background-image: url('img/taustfirmad.png');*/
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgb(246, 250, 249);
-    
-    
+    background-color: rgb(246, 250, 249); 
 }
 #logos{
     display: flex;
@@ -264,8 +299,11 @@ svg .shape-fill {
     margin-top: 20px;
 }
 
+
+
+
 #section4{
-    background-color: rgb(230, 247, 242);
+    background-color: rgb(226, 243, 238);
     height: auto;
     padding: 30px 50px 60px 50px;
     display: flex;
@@ -274,7 +312,9 @@ svg .shape-fill {
     justify-content: center;
     color:rgb(61, 71, 69);
 }
-
+#section4 h2{
+    text-align: center;
+}
 .accordion{
     background-color: rgb(255, 255, 255);
     color: rgb(81, 94, 86);
@@ -289,7 +329,7 @@ svg .shape-fill {
     font-size: 20px;
 }
 .active, .accordion:hover{
-    background-color: rgb(221, 219, 219);
+    background-color: rgba(221, 219, 219, 0.904);
 }
 .panel{
     padding: 0 18px;
@@ -320,11 +360,17 @@ svg .shape-fill {
     background-color:rgb(154, 195, 218,0.5);
     margin-bottom: 10px;
     margin-top: 30px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
     
 }
 
 .vormista{
-    background-color: rgba(130, 199, 147, 0.9);
+    background-color: rgba(71, 153, 105, 0.9);
     border: none;
     padding: 15px;
     border-radius: 8px;
@@ -334,7 +380,7 @@ svg .shape-fill {
     transition: background-color 0.5s;
 }
 .vormista:hover{
-    background-color: rgb(66, 143, 98, 0.9);
+    background-color: rgba(44, 116, 74, 0.9);
     cursor: pointer;
 }
 .vormista a:link{
@@ -354,7 +400,7 @@ table{
 th{
     height: 60px;
     text-align: left;
-    background-color: rgb(192, 210, 221, 0.5);
+    background-color: rgba(196, 214, 226, 0.5);
     font-size: 19px;
     padding: 0px 10px;
 }
@@ -364,9 +410,16 @@ td{
     margin-bottom: 100px;
     padding: 5px 10px;
 }
-
+#table{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 30px 15px 0px 15px;
+}
 #backToFP{
-    background-color: rgb(194, 224, 178);
+    background-color: rgba(71, 153, 105, 0.9);
     border: none;
     padding: 20px;
     margin-top: 20px;
@@ -377,14 +430,14 @@ td{
     transition: background-color 0.5s;
 }
 #backToFP:hover{
-    background-color: rgb(66, 143, 98, 0.9);
+    background-color: rgba(47, 112, 74, 0.9);
     cursor: pointer;
 }
 #backToFP a:link{
-    color: rgb(92, 92, 92);
+    color: rgb(255, 254, 254);
 }
 #backToFP a:visited{
-    color: rgb(92, 92, 92);
+    color: rgb(255, 253, 253);
 }
 
 
@@ -401,15 +454,25 @@ td{
     align-items: center;
     color:rgb(251, 255, 253);
 }
+
 #contacts{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
 }
-#tel{margin-left: 30px; color:rgb(47, 109, 68);}#mail{margin-right: 30px; color:rgb(45, 114, 68);}
+#mail{margin-right: 30px; color:rgb(45, 114, 68);}
+#contacts a:link{
+    color: #ffffff !important;
+}
+#contacts a:visited{
+    color: #ffffff !important;
+}
+#contacts a:hover{
+    color: #6183be !important;
+}
 #copyright{
     width: 100%;
     background-color: rgb(95, 96, 99);
@@ -419,7 +482,7 @@ td{
     justify-content: center;
     align-items: center;
 }
-.fa-envelope, .fa-phone{color: rgb(164, 209, 199);}
+.fa-envelope{color: rgb(164, 209, 199);}
 
 
 
@@ -432,3 +495,94 @@ td{
     background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25)
 }
 
+
+@media only screen and (max-width: 1000px) {
+    [id="info"] {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    [id="inputs"] {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    [class="custom-shape-divider-bottom-1623233967"]{
+        display: none;
+    }
+    [id="section3"]{
+        text-align: center;
+    }
+    [class="pros"]{
+        width: 30%;
+        margin: 20px 15px 60px 15px;
+    }
+    [id="section4"]{
+        padding: 30px 20px 60px 20px;
+    }
+    [class="panel"]{
+        width: 90%;
+    }
+    [class="accordion"]{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 700px) {
+    [id="head2"]{
+        left: 0;
+        top: 80px !important;
+        right: 0 !important;
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 95px;
+    }
+    [id="head2results"]{
+        left: 0;
+        top: 80px !important;
+        right: 0 !important;
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 95px;
+    }
+    [id="navResults"]{
+        height: 130px !important;
+    }
+    [id="info"] {
+        font-size: 35px;
+    }
+    [id="inputs"] {
+        font-size: 15px;
+    }
+    [id="procontainer"]{
+        flex-direction: column !important;
+        align-items: center;
+        width: 100%;
+    }
+    [class="pros"]{
+        width: 90%;
+        margin: 15px 15px 15px 15px;
+    }
+    [id="logos"]{
+        flex-direction: column !important;
+        align-items: center;
+    }
+    [class="panel"]{
+        width: 90%;
+    }
+    [class="accordion"]{
+        width: 90%;
+    }
+    [id="table"]{
+        justify-content:flex-start !important;
+    }
+ 
+ 
+}
+
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
