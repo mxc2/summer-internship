@@ -11,17 +11,15 @@ Meie suvepraktika eesmärgiks oli luua veebileht, mis laseks tavalisel inimesel 
 
 ### Kasutatud tarkvara ja versioonid
 
-•Opencagedata Geocoding API v
+•Opencagedata Geocoding API
 
 •PHP v.7.4.20
 
 •MySql v.15.1
 
-•Html v.4
+•Html v.5
 
 •Javascript
 
-•Ajax
-
-•Css
+•Css v.3
 
