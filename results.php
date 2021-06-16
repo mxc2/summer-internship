@@ -3,8 +3,6 @@ session_start();
 require("geoloc/fnc_dataForCalc.php");
 require("../../config.php");
 $database = "if20_marcus_praktika";
-
-
 ?>
 
 
@@ -14,14 +12,12 @@ $database = "if20_marcus_praktika";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="script.js" defer></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
-    
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon32.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
-    <title>Projekt</title>
+    <title>Tulemused | Parimautomaat</title>
 </head>
 <body>
 
@@ -58,7 +54,7 @@ $database = "if20_marcus_praktika";
             if (!empty($_SESSION['start'])){
                 echo readresults($data);} 
         ?>
-    </div>
+    
     <button id="backToFP"><a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika">Tagasi esilehele</a></button>
 
 </section>

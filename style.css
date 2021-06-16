@@ -1,33 +1,4 @@
 * {box-sizing:border-box;}
-/* Animation for searching */
-#loading-circle {
-  position: absolute;
-  top: 100px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 120px;
-  height: 120px;
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid #3498db;
-  border-radius: 50%;
-  animation: spin 0.8s ease-in infinite;
-  z-index:99999;
-}
-
-#lock-modal {
-  background-color: black;
-  opacity: 0.8;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  z-index:9999;
-}
 
 body{
     margin: 0;
@@ -36,14 +7,14 @@ body{
     font-family: 'Quicksand', sans-serif;
     
 }
+/* Esilehel div, et taust oleks header'il ja section1'l sama */
 #container{
     background-image: url('img/taust.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
-a:hover{
-    text-decoration: underline;
-}
+
+/* Header'i elemendid */
 #header{
     height: 11vh;
     min-height: 100px;
@@ -53,12 +24,9 @@ a:hover{
     justify-content: center;
     padding: 20px 0px 15px 0px;
     font-size: 30px;
-    /* color: white; */
     text-decoration: underline solid transparent;
     transition: text-decoration 500ms ease;
     font-family:'Quicksand', sans-serif;
-    /* color: rgb(255, 255, 255); */
-    
 }
 .fa-question-circle{
     margin-right: 5px;
@@ -85,6 +53,7 @@ a:hover{
     top: 25px;
     font-size: 30px;
 }
+/* Header'i lingid */
 a{
     text-decoration: none;
 }
@@ -111,9 +80,9 @@ a:hover{
 }
 
 
-
+/* Esimene sektsioon pealkirjadega */
 #section1{
-    min-height: calc(100vh - 100px);;
+    min-height: calc(100vh - 100px);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -128,12 +97,13 @@ a:hover{
     align-items: center;
     font-size: 19px;
     text-align: center;
+    text-shadow: 3px 3px 10px #555555;
 }
 h1{
     font-size: 45px;
 }
 
-
+/* Form'i ümbriskast */
 #inputs{
     display: flex;
     flex-direction: column;
@@ -141,7 +111,6 @@ h1{
     align-items: center;
     text-align: center;
     border-radius: 20px;
-    /* padding: 5px 75px 30px 75px; */
     background-color: rgba(71, 67, 65, 0.8);
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -152,6 +121,7 @@ h1{
 }
 #head-input{
     background-color: rgb(35, 161, 87);
+    text-shadow: 2px 2px 10px #555555;
     width: 100%;
     height: 100%;
     display: flex;
@@ -164,6 +134,7 @@ h1{
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12);
 }
+/* Formi vormistus */
 #form{
     padding: 30px 60px 30px 60px;
 }
@@ -194,19 +165,21 @@ input[type=submit]{
     border: none;
     box-shadow: none;
     margin-top: 20px;
-    transition:background-color 1s;
+    transition: 0.4s;
 }
 input[type=submit]:hover{
     background-color: rgb(27, 121, 66);
     cursor: pointer;
 }
+
 #scroll{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-shadow: 2px 2px 10px #555555;
 }
-
+/* Esilehe shape divider */
 .custom-shape-divider-bottom-1623233967 {
     position: absolute;
     bottom: 0;
@@ -227,7 +200,7 @@ input[type=submit]:hover{
 }
 
 
-
+/* Logod */
 #section2{
     width: 100%;
     display: flex;
@@ -248,7 +221,7 @@ input[type=submit]:hover{
 
 
 
-
+/* "Miks meid kasutada" sektsioon */
 #section3{
     padding-bottom: 30px;
     padding-top: 30px;
@@ -301,7 +274,7 @@ input[type=submit]:hover{
 
 
 
-
+/* KKK sektsioon */
 #section4{
     background-color: rgb(226, 243, 238);
     height: auto;
@@ -319,7 +292,7 @@ input[type=submit]:hover{
     background-color: rgb(255, 255, 255);
     color: rgb(81, 94, 86);
     cursor: pointer;
-    padding: 18px;
+    padding: 18px 25px;
     margin-top: 4px;
     width: 70%;
     text-align: left;
@@ -332,7 +305,7 @@ input[type=submit]:hover{
     background-color: rgba(221, 219, 219, 0.904);
 }
 .panel{
-    padding: 0 18px;
+    padding: 0 25px;
     width: 70%;
     background-color: rgb(244, 244, 247);
     display: none;
@@ -343,7 +316,7 @@ input[type=submit]:hover{
 
 
 
-
+/* Results'i lehe sektsioon ja esimeen kast */
 #section10{
     min-height: 93vh;
     width: 100%;
@@ -369,27 +342,8 @@ input[type=submit]:hover{
     
 }
 
-.vormista{
-    background-color: rgba(71, 153, 105, 0.9);
-    border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 15px;
-    width: 100%;
-    transition: background-color 0.5s;
-}
-.vormista:hover{
-    background-color: rgba(44, 116, 74, 0.9);
-    cursor: pointer;
-}
-.vormista a:link{
-    color: white;
-}
-.vormista a:visited{
-    color: white;
-}
 
+/* Tulemuste tabel */
 table{
     border-collapse: separate;
     border-spacing: 0 5px;
@@ -418,6 +372,28 @@ td{
     overflow-x: auto;
     padding: 30px 15px 0px 15px;
 }
+/* Tulemuste nupp */
+.vormista{
+    background-color: rgba(71, 153, 105, 0.9);
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    width: 100%;
+    transition: background-color 0.5s;
+}
+.vormista:hover{
+    background-color: rgba(44, 116, 74, 0.9);
+    cursor: pointer;
+}
+.vormista a:link{
+    color: white;
+}
+.vormista a:visited{
+    color: white;
+}
+/* Tagasi esilehele nupp */
 #backToFP{
     background-color: rgba(71, 153, 105, 0.9);
     border: none;
@@ -444,7 +420,7 @@ td{
 
 
 
-
+/* Footer'i elemendid */
 #footer{
     background-color:rgb(136, 161, 153, 0.8);
     width: 100%;
@@ -454,7 +430,6 @@ td{
     align-items: center;
     color:rgb(251, 255, 253);
 }
-
 #contacts{
     width: 100%;
     display: flex;
@@ -486,16 +461,7 @@ td{
 
 
 
-
-#load{
-    width:100%;
-    height:100%;
-    position:fixed;
-    z-index:9999;
-    background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25)
-}
-
-
+/* Väiksemate ekraanide vaated */
 @media only screen and (max-width: 1000px) {
     [id="info"] {
         margin-left: 30px;
@@ -577,12 +543,39 @@ td{
  
 }
 
-
-
+/* Animation for searching */
+#loading-circle {
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    animation: spin 0.8s ease-in infinite;
+    z-index:99999;
+}
+#lock-modal {
+    background-color: black;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index:9999;
+}
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

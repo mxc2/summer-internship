@@ -8,32 +8,32 @@ $c=null;
 $continue = null;
 $start="";
 $end="";
-if(isset($_POST["submit"])){
-	
+$weight="";
+if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
     $a=$_POST["a"];
     $b=$_POST["b"];
     $c=$_POST["c"];
     $start=$_POST["start"];
     $end=$_POST["end"];
-    if(empty($_POST["a"]) or empty($_POST["b"]) or empty($_POST["c"])){
+    if(empty($_POST["a"]) or empty($_POST["b"]) or empty($_POST["c"])){ /* Kontrollib, kas mõõdud on sisestatud */
         $inputerror .= "Sisesta kõik mõõdud! <br>";
     }
-    if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0){
+    if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0){ /*Kontrollib, kas mõõdud on suuremad kui 0 */
         $inputerror .= "Mõõdud peavad olema suuremad kui 0! <br>";
     }
-    if(empty($_POST["start"]) or empty($_POST["end"])){
+    if(empty($_POST["start"]) or empty($_POST["end"])){ /* Kontrollib, kas aadressid on sisestatud */
         $inputerror .= "Sisesta mõlemad aadressid! ";
     }
     if(empty($inputerror)){
 		$inputerror .= "Otsime teile lähimaid pakiautomaate...";
 		
+        /* Saadab form'i väärtused sessiooni muutujateks, et results.php kätte saaks andmed */
         $_SESSION["a"] = $_POST["a"];
         $_SESSION["b"] = $_POST["b"];
         $_SESSION["c"] = $_POST["c"];
         $_SESSION["start"] = $_POST["start"];
         $_SESSION["end"] = $_POST["end"];
-		
-		$continue .= 1;
+		$continue = 1; /* Loading screen tuleb ette */
     }
 }
 
@@ -45,26 +45,24 @@ if(isset($_POST["submit"])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="script.js" defer></script> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Ikoonide import --> 
+    <link rel="stylesheet" href="style.css"> <!-- css'i import -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon32.png"> <!-- Favicon -->
+    <link rel="preconnect" href="https://fonts.gstatic.com"> <!-- Font'ide import -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
-    <title>Projekt</title>
+    <title>Parimautomaat</title>
 </head>
 
 
 <body>
-<div id="container">
+<div id="container"> <!-- container, et header'il ja section1'l oleks sama taust -->
     <div id="navIndex">
-        <div id="head1">
+        <div id="head1"> <!-- logo lingiga esilehele -->
             <a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika>
                 <img src="img/logoNew.png" alt="Logo" width="300">
             </a>
         </div>
-        <div id="head2">
+        <div id="head2"> <!-- Info nupp ikooniga -->
             <a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4">
                 <i class="fa fa-question-circle"></i>
                 Info
@@ -74,46 +72,47 @@ if(isset($_POST["submit"])){
 
 
     
-    <section id="section1">
+    <section id="section1"> <!-- esimene sektsioon -->
         <div id="info">
             <h1>Iga sekund pannakse teele rohkem kui 3000 pakki</h1>
             <h3>Võrdleme Teile lähedal asuvate teenustepakkujate hindu vastavalt Teie paki suurusele ja leiame kõige odavamad pakkumised</h3>
         </div>
-        <div id="inputs">
+        <div id="inputs"> <!-- Andmete sisestuse kast -->
             <div id="head-input"><h2>Sisesta andmed siia</h2></div>
-            <div id="form">
+            <div id="form"> <!-- Form -->
                 <form method="post">
                     <label for="a"></label>
-                    <input type="number" id="a" name="a" placeholder="1. külg (cm)" value="a" >
+                    <input type="number" id="a" name="a" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="1. külg (cm)" value="<?php echo $a; ?>">
                     <label for="b"></label>
-                    <input type="number" id="b" name="b" placeholder="2. külg (cm)">
+                    <input type="number" id="b" name="b" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="2. külg (cm)" value="<?php echo $b; ?>">
                     <label for="c"></label>
-                    <input type="number" id="c" name="c" placeholder="3. külg (cm)">
+                    <input type="number" id="c" name="c" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="3. külg (cm)" value="<?php echo $c; ?>">
                     <label for="start"></label>
-                    <input type="text" id="start" name="start" placeholder="Narva mnt 127, Tallinn">
+                    <input type="text" id="start" name="start" placeholder="Algpunkt (Mooni 8, Tallinn)" value="<?php echo $start; ?>">
                     <label for="end"></label>
-                    <input type="text" id="end" name="end" placeholder="Kivi 4, Tartu"><br>
+                    <input type="text" id="end" name="end" placeholder="Lõpp-punkt (Kivi 4, Tartu)" value="<?php echo $end; ?>"><br>
                     <input onclick="myFunction()" type="submit" name="submit" value="Leia parim pakiautomaat">					
 					
                 </form>
-				<p><?php echo $LoadingMessage; 
-				if($continue == 1){
-					header( "refresh:1; url=results.php" );
-					echo '<div id="lock-modal"></div>';
-					echo '<div id="loading-circle"></div>';
-				}
+				<p><?php /* Loading screen */
+                    if($continue == 1){
+                        header( "refresh:1; url=results.php" );
+                        echo '<div id="lock-modal"></div>';
+                        echo '<div id="loading-circle"></div>';
+                    }
 				?></p>
 				<script>function myFunction() {
-				  document.getElementById("lock-modal").style.display = "block";
-				  document.getElementById("loading-circle").style.display = "block";
+                    document.getElementById("lock-modal").style.display = "block";
+                    document.getElementById("loading-circle").style.display = "block";
 				}</script>
                 <p><?php echo $inputerror; ?></p>
             </div>
         </div>
-        <div id="scroll">
-            <h3>Scrolli, et näha rohkem</h3>
+        <div id="scroll"> <!-- Allakerimise tekst ja ikoon -->
+            <h3>Keri alla, et näha rohkem</h3>
             <i class="fa fa-angle-double-down"></i>
 
+            <!-- Shape divider (näha vaid arvutivaates) -->
             <div class="custom-shape-divider-bottom-1623233967">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -126,7 +125,7 @@ if(isset($_POST["submit"])){
 </div>
 
 
-<section id="section3">
+<section id="section3"> <!-- "Miks meie lehte kasutada" sektsioon -->
 	<h2>Miks kasutada parimautomaat.ee?</h2>
     <div id="procontainer">
         <div class="pros">
@@ -148,6 +147,7 @@ if(isset($_POST["submit"])){
 </section>
 
 
+<!-- Logode sektsioon -->
 <section id="section2" style="background-color:rgba(0, 0, 0, 0);">
 
     <h2>Kasutage postipakkide saatmisel usaldusväärseid ettevõtteid!</h2>
@@ -158,13 +158,13 @@ if(isset($_POST["submit"])){
     </div>
 </section>
 
-<section id="section4">
 
+<!-- KKK sekstsioon -->
+<section id="section4">
     <h2>Korduma kippuvad küsimused</h2>
 	
-	<button class="accordion">Kuidas pakki saata?</button>
-    <div class="panel">
-        <p>
+	<button class="accordion">Kuidas pakki saata?</button> <!-- Klikkides küsimusele (accordion button), avab vastuse -->
+    <div class="panel"> <!-- Vastus -->
             <ul>
                 <li>Mõõtke paki külgede suurused sentimeetrites.</li>
                 <li>Avalehel sisestage paki pikkus, laius ja kõrgus.</li>
@@ -174,7 +174,7 @@ if(isset($_POST["submit"])){
                 <li>Valige Teile sobivaim pakkumine ja vajutaga selle peale.</li>
                 <li>Süsteem suunab Teid teenusepakkuja veebilehele, kus saate vormistada paki iseteeninduses</li>
             </ul>
-        </p>
+
     </div>
 	
 	<button class="accordion">Kas pakki on võimalik saata rahvusvaheliselt?</button>
@@ -223,10 +223,12 @@ if(isset($_POST["submit"])){
     
 </section>
 
+<!-- Kutsub välja footer'i -->
 <?php
     require("footer.php");
 ?>
 
+<!-- KKK's avab button'i vajutamise peale panel'id -->
 <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -240,15 +242,15 @@ if(isset($_POST["submit"])){
         /* Toggle between hiding and showing the active panel */
         var panel = this.nextElementSibling;
         if (panel.style.display === "block") {
-        panel.style.display = "none";
+            panel.style.display = "none";
         } else {
-        panel.style.display = "block";
+            panel.style.display = "block";
         }
     });
     }
 	
 	function myFunction() {
-	  document.getElementById("lock-modal").style.display = "block";
-	  document.getElementById("loading-circle").style.display = "block";
+        document.getElementById("lock-modal").style.display = "block";
+        document.getElementById("loading-circle").style.display = "block";
 	}
 </script>

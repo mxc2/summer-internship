@@ -21,7 +21,7 @@ $Output = "";
 <p><?php echo $Output; ?></p>
 
 <input  type="submit" name="submit" value="Leia parim pakiautomaat">
-<div id="InAadress" style="width: 300px; height: 450px"></div>
+<div id="InAadress" style="width: 600px; height: 450px"></div>
 <div id="InAadress2" style="width: 600px; height: 450px"></div>
 <script>
 var lat = 0;
@@ -41,24 +41,20 @@ document.addEventListener('addressSelected', function(e){
 	 inAadress.setAddress(aadress);
 	 lat = e.detail[0]["b"];
 	 lon = e.detail[0]["l"];
-	 console.log("Esimene input");
+	 console.log("test");
 	 console.log(lat);
 	 console.log(lon);
-	 data: { lat : lat };
-	 data: { lon : lon };
 	 test += 1;
  } else if (test == 1){
 	 var aadress2 = e.detail[0]["aadress"];
 	 inAadress2.setAddress(aadress2);
-	 lat2 = e.detail[0]["b"];
-	 lon2 = e.detail[0]["l"];
-	 console.log("Teine input");
-	 data: { lat2 : lat2 };
-	 data: { lon2 : lon2 };
-	 console.log(lat2);
-	 console.log(lon2);
-	 test -= 1;
+	 lat = e.detail[0]["b"];
+	 lon = e.detail[0]["l"];
+	 console.log(e.detail);
+	 console.log(lat);
+	 console.log(lon);
  }
+ data: { lat : lat };
  inAadress.hideResult();
  inAadress2.hideResult();
 });

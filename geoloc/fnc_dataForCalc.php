@@ -19,6 +19,7 @@ function geoCodeFinder($input){
 
 		return $coords;
 		
+		
 	}
 }
 
@@ -90,12 +91,17 @@ function dataForCalc($location, $company) {
 	  $conn->close();
 	}else{
 		echo'<span style="font-size:30px;"> Aadressiga esines viga. </span>';
-
+		
 		exit;
 	}
-
+if ($distanceToCompare==1000){
+	echo'<span style="font-size:30px;"> Aadressiga esines viga. </span>';
+	
+	exit();
+}
 	  return $data;
   }
+
 //}
   
  function getParcelAddress($parcel_ID, $company){
@@ -188,7 +194,7 @@ function dataForCalc($location, $company) {
 
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
 
-    $stmt = $conn->prepare("SELECT pakid_id, firma, suurus, max_kaal, hind FROM pakid WHERE 
+    $stmt = $conn->prepare("SELECT firma, suurus, max_kaal, hind, a, b, c FROM pakid WHERE 
     '$userA'<a AND '$userB'<b AND '$userC'<c OR 
     '$userA'<a AND '$userC'<b AND '$userB'<c OR 
     '$userB'<a AND '$userC'<b AND '$userA'<c OR 
@@ -199,7 +205,7 @@ function dataForCalc($location, $company) {
     ORDER BY hind");
     echo $conn->error;
 
-    $stmt->bind_result($pakid_id, $firma, $suurus, $max_kaal, $hind);
+    $stmt->bind_result($firma, $suurus, $max_kaal, $hind, $parcelA, $parcelB, $parcelC);
     $stmt->execute();
 
 	//
@@ -215,23 +221,50 @@ function dataForCalc($location, $company) {
 						</tr>";
     while($stmt->fetch()){
                 
-        $resultshtml .= "<tr><td>" .$firma ."</td><td>" .$suurus ."</td><td>";
-        if($firma == "Omniva"){
-            $resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
-            ."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
-            ."</td><td>";
-        }else if($firma == "Itella"){
-            $resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
-            ."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
-            ."</td><td>";
-        }else if($firma == "DPD"){
-            $resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
-            ."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
-            ."</td><td>";
-        }else{
-            $resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
-        }
+        $resultshtml .= "<tr><td>" .$firma ."</td><td>" ;
+		if ($userA<$parcelA && $userB<$parcelB && $userC<$parcelC || 
+			$userA<$parcelA && $userC<$parcelB && $userB<$parcelC || 
+			$userB<$parcelA && $userC<$parcelB && $userA<$parcelC || 
+			$userB<$parcelA && $userA<$parcelB && $userC<$parcelC || 
+			$userC<$parcelA && $userA<$parcelB && $userB<$parcelC || 
+			$userC<$parcelA && $userB<$parcelB && $userA<$parcelC){
+			
+			$resultshtml .= $suurus ."</td><td>";
+			
+			if($firma == "Omniva"){
+				$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
+				."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
+				."</td><td>";
+			}else if($firma == "Itella"){
+				$resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
+				."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
+				."</td><td>";
+			}else if($firma == "DPD"){
+				$resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
+				."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
+				."</td><td>";
+			}else{
+				$resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
+			}
+		}else{
+			 $resultshtml .= $suurus ." **</td><td>";
 
+			if($firma == "Omniva"){
+				$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
+				."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
+				."</td><td>";
+			}else if($firma == "Itella"){
+				$resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
+				."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
+				."</td><td>";
+			}else if($firma == "DPD"){
+				$resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
+				."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
+				."</td><td>";
+			}else{
+				$resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
+			}
+		}
         $resultshtml .= $max_kaal ."kg </td><td>" .$hind ."€ </td>";
 
         if($firma == "Omniva"){
@@ -243,6 +276,7 @@ function dataForCalc($location, $company) {
         }else{
             $resultshtml .= "<td>ERROR</td></tr>";
         }
+		$resultshtml .= "</table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>";
 
     }
 	if ($resultshtml=="<table cellpadding='0 30'>
@@ -255,10 +289,14 @@ function dataForCalc($location, $company) {
 							<th>Hind</th>
 							<th></th>
 						</tr>"){
-							$resultshtml = "<table cellpadding='0 30'><tr> <th>Firma</th></tr>";
-							$resultshtml .= "<tr><td> siin on omniva kuller, siin on dpd kuller, siin on itella kuller";
+							$resultshtml = "<table cellpadding='0 30'><tr><th colspan='3'>Antud pakk on liiga suur pakiautomaatide jaoks. Saate kasutada kullerteenust: </th></tr>";
+							$resultshtml .= "<tr><td width='33%'><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Omniva</a></button></td>";
+							$resultshtml .= "<td width='33%'><button class=vormista ><a href=https://itella.ee/eraklient/kojuvedu/>Itella</a></button></td>";
+							$resultshtml .= "<td width='33%'><button class=vormista><a href=https://telli.dpd.ee/offer/list>DPD</a></button></td></tr>";
+							//$resultshtml .= "<tr><td> siin on omniva kuller <br> siin on dpd kuller <br> siin on itella kuller";
+							$resultshtml .= "</table></div>";
 						}
-	$resultshtml .= "</table>";
+	
 	$stmt->close();
     $conn->close();
 	return $resultshtml;
