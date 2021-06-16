@@ -1,5 +1,8 @@
-# Suvepraktika teemal Pakikulude optimeerimine : Parimautomaat
+![logo](https://user-images.githubusercontent.com/70900361/122216284-e2d55900-ceb4-11eb-988c-c14603676b80.png)
 
+
+
+# Suvepraktika teemal Pakikulude optimeerimine : Parimautomaat
 
 ### Eesmärk ja lühikirjeldus
 
