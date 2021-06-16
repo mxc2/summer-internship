@@ -6,22 +6,25 @@ $database = "if20_marcus_praktika";
 //Converts user input to a processable coordinate
 function geoCodeFinder($input){
 	//echo $input;
-	$geocoder = new \OpenCage\Geocoder\Geocoder('5a7f44a78bf947aebdaaa1a484c50cfe');//<--API key neccessary for gecoding//API key2, for just in case('da0c24be00f44f3a8fcb4da9d7cd8d47'), another one 388d369f44d14ec39e73894df210035c 5a7f44a78bf947aebdaaa1a484c50cfe
+	$geocoder = new \OpenCage\Geocoder\Geocoder("20054b22bd6f4929badb5d4a1d9080f2");//<--API key 20054b22bd6f4929badb5d4a1d9080f2 neccessary for gecoding//API key2, for just in case('da0c24be00f44f3a8fcb4da9d7cd8d47'), another one 388d369f44d14ec39e73894df210035c 5a7f44a78bf947aebdaaa1a484c50cfe
 	$result = $geocoder->geocode($input);
 	//print_r( $result);
 	if ($result && $result['total_results'] > 0) {
 		$first = $result['results'][0];
+
 
 		$txt = json_encode([$first['geometry']['lat'], $first['geometry']['lng']]);	//Gets coordinate	
 		$txt = trim($txt, '[]');//Changes the coordinate to processable one
 		$coords = explode(',', $txt);
 		//print_r ($coords);
 
+
 		return $coords;
 		
 		
 	}
 }
+
 
 //Calculates the distance between two coordinates
 function distance($lat1, $lon1, $lat2, $lon2) { 
@@ -41,6 +44,7 @@ return $km;
 }
 //Finds the nearest parcel machine to the user input
 function dataForCalc($location, $company) {
+
 
 	 //echo geoCodeFinder($location)[0];
 	//Converts user input to coordinates
@@ -69,6 +73,8 @@ function dataForCalc($location, $company) {
 	  $distanceToCompare = 1000;
 	  
 	  while($stmt->fetch()) {
+
+
 
 
 		$distance = distance($userStartLat, $userStartLon, $latfromdb, $lonfromdb);
@@ -102,6 +108,7 @@ if ($distanceToCompare==1000){
 	  return $data;
   }
 
+
 //}
   
  function getParcelAddress($parcel_ID, $company){
@@ -131,6 +138,7 @@ if ($distanceToCompare==1000){
 	  
 	  while($stmt->fetch()) {
 
+
 		if ($parcel_ID==$idfromdb){
 			$aadress = $kauplusfromdb ." " .$maakondfromdb;
 		}
@@ -146,6 +154,7 @@ if ($distanceToCompare==1000){
 	  return $aadress;
  }
   function dataProcess($start, $end){
+
 
   //--------------------StartData----------------------------
   //Some data
@@ -186,27 +195,33 @@ if ($distanceToCompare==1000){
   
  }
 
+
  //Generating parcel sending cost for each company
- function readresults($data){
+ function readresults($data, $weight){
+
     $userA = $_SESSION['a'];
     $userB = $_SESSION['b'];
     $userC = $_SESSION['c'];
-
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
+	$omnivaCounter = 0;
+	$itellaCounter = 0;
+	$dpdCounter = 0;
 
-    $stmt = $conn->prepare("SELECT firma, suurus, max_kaal, hind, a, b, c FROM pakid WHERE 
-    '$userA'<a AND '$userB'<b AND '$userC'<c OR 
-    '$userA'<a AND '$userC'<b AND '$userB'<c OR 
-    '$userB'<a AND '$userC'<b AND '$userA'<c OR 
-    '$userB'<a AND '$userA'<b AND '$userC'<c OR 
-    '$userC'<a AND '$userA'<b AND '$userB'<c OR 
-    '$userC'<a AND '$userB'<b AND '$userA'<c OR
-	('$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c)
-    ORDER BY hind");
+    $stmt = $conn->prepare("SELECT firma, suurus, max_kaal, MIN(hind), a, b, c FROM pakid WHERE 
+    '$userA'<a AND '$userB'<b AND '$userC'<c AND  max_kaal >= '$weight' OR 
+    '$userA'<a AND '$userC'<b AND '$userB'<c AND  max_kaal >= '$weight' OR 
+    '$userB'<a AND '$userC'<b AND '$userA'<c AND  max_kaal >= '$weight' OR 
+    '$userB'<a AND '$userA'<b AND '$userC'<c AND  max_kaal >= '$weight' OR 
+    '$userC'<a AND '$userA'<b AND '$userB'<c AND  max_kaal >= '$weight' OR 
+    '$userC'<a AND '$userB'<b AND '$userA'<c AND  max_kaal >= '$weight' OR
+	(('$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c)) AND  max_kaal >= '$weight'
+    GROUP BY firma ORDER BY hind");
     echo $conn->error;
+
 
     $stmt->bind_result($firma, $suurus, $max_kaal, $hind, $parcelA, $parcelB, $parcelC);
     $stmt->execute();
+
 
 	//
     $resultshtml = "<table cellpadding='0 30'>
@@ -220,7 +235,6 @@ if ($distanceToCompare==1000){
 							<th></th>
 						</tr>";
     while($stmt->fetch()){
-                
         $resultshtml .= "<tr><td>" .$firma ."</td><td>" ;
 		if ($userA<$parcelA && $userB<$parcelB && $userC<$parcelC || 
 			$userA<$parcelA && $userC<$parcelB && $userB<$parcelC || 
@@ -249,6 +263,7 @@ if ($distanceToCompare==1000){
 		}else{
 			 $resultshtml .= $suurus ." **</td><td>";
 
+
 			if($firma == "Omniva"){
 				$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
 				."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
@@ -267,6 +282,7 @@ if ($distanceToCompare==1000){
 		}
         $resultshtml .= $max_kaal ."kg </td><td>" .$hind ."€ </td>";
 
+
         if($firma == "Omniva"){
             $resultshtml.="<td><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Vormista pakk</a></button></td>";
         }else if($firma == "Itella"){
@@ -276,9 +292,10 @@ if ($distanceToCompare==1000){
         }else{
             $resultshtml .= "<td>ERROR</td></tr>";
         }
-		$resultshtml .= "</table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>";
+		
 
     }
+	$resultshtml .= "</table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>";
 	if ($resultshtml=="<table cellpadding='0 30'>
 						<tr>
 							<th>Firma</th>
@@ -288,9 +305,9 @@ if ($distanceToCompare==1000){
 							<th>Max kaal</th>
 							<th>Hind</th>
 							<th></th>
-						</tr>"){
-							$resultshtml = "<table cellpadding='0 30'><tr><th colspan='3'>Antud pakk on liiga suur pakiautomaatide jaoks. Saate kasutada kullerteenust: </th></tr>";
-							$resultshtml .= "<tr><td width='33%'><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Omniva</a></button></td>";
+						</tr></table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>"){
+						$resultshtml = "<table cellpadding='0 30'><tr><th colspan='3'>Antud pakk on liiga suur või raske pakiautomaatide jaoks. Saate kasutada kullerteenust: </th></tr>";
+							$resultshtml .= "<tr><td width='33%'><a href=https://minu.omniva.ee/parcel/new><button class=vormista>Omniva</button></a></td>";
 							$resultshtml .= "<td width='33%'><button class=vormista ><a href=https://itella.ee/eraklient/kojuvedu/>Itella</a></button></td>";
 							$resultshtml .= "<td width='33%'><button class=vormista><a href=https://telli.dpd.ee/offer/list>DPD</a></button></td></tr>";
 							//$resultshtml .= "<tr><td> siin on omniva kuller <br> siin on dpd kuller <br> siin on itella kuller";

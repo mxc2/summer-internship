@@ -13,12 +13,13 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
     $a=$_POST["a"];
     $b=$_POST["b"];
     $c=$_POST["c"];
+    $weight=$_POST["weight"];
     $start=$_POST["start"];
     $end=$_POST["end"];
-    if(empty($_POST["a"]) or empty($_POST["b"]) or empty($_POST["c"])){ /* Kontrollib, kas mõõdud on sisestatud */
+    if(empty($_POST["a"]) or empty($_POST["b"]) or empty($_POST["c"]) or empty($_POST["weight"])){ /* Kontrollib, kas mõõdud on sisestatud */
         $inputerror .= "Sisesta kõik mõõdud! <br>";
     }
-    if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0){ /*Kontrollib, kas mõõdud on suuremad kui 0 */
+    if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0 or $_POST["weight"]<=0){ /*Kontrollib, kas mõõdud on suuremad kui 0 */
         $inputerror .= "Mõõdud peavad olema suuremad kui 0! <br>";
     }
     if(empty($_POST["start"]) or empty($_POST["end"])){ /* Kontrollib, kas aadressid on sisestatud */
@@ -31,12 +32,22 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
         $_SESSION["a"] = $_POST["a"];
         $_SESSION["b"] = $_POST["b"];
         $_SESSION["c"] = $_POST["c"];
+        $_SESSION["weight"] = $_POST["weight"];
         $_SESSION["start"] = $_POST["start"];
         $_SESSION["end"] = $_POST["end"];
+
 		$continue = 1; /* Loading screen tuleb ette */
     }
 }
 
+$Output = "";
+
+    if(isset($_POST['lat']))
+{
+    $uid = $_POST['lat'];
+	$Output = $uid;
+   // Do whatever you want with the $uid
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +56,7 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://inaadress.maaamet.ee/inaadress/js/inaadress.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Ikoonide import --> 
     <link rel="stylesheet" href="style.css"> <!-- css'i import -->
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon32.png"> <!-- Favicon -->
@@ -65,7 +77,7 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
         <div id="head2"> <!-- Info nupp ikooniga -->
             <a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika/#section4">
                 <i class="fa fa-question-circle"></i>
-                Info
+                KKK
             </a>
         </div>
     </div>
@@ -87,10 +99,13 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
                     <input type="number" id="b" name="b" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="2. külg (cm)" value="<?php echo $b; ?>">
                     <label for="c"></label>
                     <input type="number" id="c" name="c" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="3. külg (cm)" value="<?php echo $c; ?>">
-                    <label for="start"></label>
-                    <input type="text" id="start" name="start" placeholder="Algpunkt (Mooni 8, Tallinn)" value="<?php echo $start; ?>">
+					<label for="weight"></label>
+                    <input type="number" id="weight" name="weight" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" placeholder="Kaal (kg)" value="<?php echo $c; ?>">
+					<label for="start"></label>                   
+				   <input type="text" id="InAadress" name="start" placeholder="Algpunkt (Mooni 8, Tallinn)" value="<?php echo $start; ?>">
                     <label for="end"></label>
-                    <input type="text" id="end" name="end" placeholder="Lõpp-punkt (Kivi 4, Tartu)" value="<?php echo $end; ?>"><br>
+                    <input type="text" id="InAadress2" name="end" placeholder="Lõpp-punkt (Kivi 4, Tartu)" value="<?php echo $end; ?>">
+					<br>
                     <input onclick="myFunction()" type="submit" name="submit" value="Leia parim pakiautomaat">					
 					
                 </form>
@@ -230,6 +245,46 @@ if(isset($_POST["submit"])){ /* Kui nupp on vajutatud */
 
 <!-- KKK's avab button'i vajutamise peale panel'id -->
 <script>
+
+// var lat = 0;
+// var lon = 0;
+// var test = 0;
+
+// var inAadress = new InAadress({"container":"InAadress","mode":"2","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
+
+// var inAadress2 = new InAadress({"container":"InAadress2","mode":"3","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
+
+// document.addEventListener('addressSelected', function(e){
+    // var info = e.detail;
+ 
+ 
+    // if(test == 0){
+        // var aadress = e.detail[0]["aadress"];
+        // inAadress.setAddress(aadress);
+        // lat = e.detail[0]["b"];
+        // lon = e.detail[0]["l"];
+        // console.log("Esimene input");
+        // console.log(lat);
+        // console.log(lon);
+        // data: { lat : lat };
+        // data: { lon : lon };
+        // test += 1;
+    // } else if (test == 1){
+        // var aadress2 = e.detail[0]["aadress"];
+        // inAadress2.setAddress(aadress2);
+        // lat2 = e.detail[0]["b"];
+        // lon2 = e.detail[0]["l"];
+        // console.log("Teine input");
+        // data: { lat2 : lat2 };
+        // data: { lon2 : lon2 };
+        // console.log(lat2);
+        // console.log(lon2);
+        // test -= 1;
+    // }
+    // inAadress.hideResult();
+    // inAadress2.hideResult();
+// });
+
     var acc = document.getElementsByClassName("accordion");
     var i;
 
