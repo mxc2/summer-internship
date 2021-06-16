@@ -25,7 +25,7 @@ Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames o
 
 •Ajax v.puudub
 
-### Projektise panustajad
+### Projektisse panustajad
 Marcus-Indrek Simmer, 
 Stella-Marii Tamme, 
 Margen Peterson, 
