@@ -43,7 +43,7 @@ Järgmiseks tuleb laadida kõik projekti failid serverisse või arvutisse, mis t
 Et veebilehte avada, tuleb avada index.php ja et süsteemihaldurit avada, tuleb avada "SystemMaintancePage" folderis index.php.
 
 ### License
-
+!(https://camo.githubusercontent.com/9e918e1e7cd28a73246cf1c8d2c9903da3e487a65931c823a2391afe4b4a0d04/68747470733a2f2f6c6963656e7365627574746f6e732e6e65742f702f7a65726f2f312e302f38387833312e706e67)
 
 To the extent possible under law, Marcus-Indrek Simmer, Stella-Marii Tamme, Margen Peterson ja Margarita Zahharova hav waived all copyright and related or neighboring rights to this work.
 
