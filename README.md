@@ -42,6 +42,8 @@ Järgmiseks tuleb laadida kõik projekti failid serverisse või arvutisse, mis t
 
 Et veebilehte avada, tuleb avada index.php ja et süsteemihaldurit avada, tuleb avada "SystemMaintancePage" folderis index.php.
 
+### License
 
 
+To the extent possible under law, Marcus-Indrek Simmer, Stella-Marii Tamme, Margen Peterson ja Margarita Zahharova hav waived all copyright and related or neighboring rights to this work.
 
