@@ -5,6 +5,8 @@
 
 # Suvepraktika teemal "Pakikulude optimeerimine: Parimautomaat"
 
+![Image of our page](https://i.imgur.com/SOvrLyi.png)
+
 ### Eesmärk ja lühikirjeldus
 
 Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames oli meie eesmärgiks luua veebileht, mis laseks inimesel saata pakke pakiautomaatidega nii odavalt kui võimalik. Suvepraktika perioodil tegime veebilehe nimega Parimautomaat, mis laseb kasutajal sisestada paki mõõdud, kaalu, alg- ja lõppasukoha, ning nende järgi arvutab meie süsteem odavaima transpordifirma, millega seda pakki saata. Süsteem töötab muutes sisestatud aadressid koordinaatideks. Seejärel võtab andmebaasist pakiautomaatide koordinaadid ja arvutab nende vahemaad kasutaja sisestatud aadressidest (mis on kordinaatideks muudetud). Tulemused annab süsteem välja tulemuste lehel, kus on näidatud iga transpordifirma odavaimat viisi saata nimetatud pakki.
