@@ -18,7 +18,8 @@ $Output = "";
 <script type="text/javascript" src="https://inaadress.maaamet.ee/inaadress/js/inaadress.min.js"></script>
 </head>
 <body>
-<p><?php echo $Output; ?></p>
+
+<button onclick="myFunction(lat, lon, lat2, lon2)">Click me</button>
 
 <!--<input  type="submit" name="submit" value="Leia parim pakiautomaat">-->
 <div id="InAadress" style="width: 600px; height: 450px"></div>
@@ -40,13 +41,11 @@ let inputs = [];
 	document.getElementById("Kast2").addEventListener("keydown", testing2);
 
  }
- 
+
+//aadress boxes
 var inAadress = new InAadress({"container":"InAadress","mode":"2","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
 
 var inAadress2 = new InAadress({"container":"InAadress2","mode":"3","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
-
-// inputs[1].addEventListener("addressSelected", testing);
-
 
 function testing(){
 	console.log("Teine");
@@ -74,7 +73,6 @@ console.log(e.target.id);
 	 console.log("test");
 	 console.log(lat);
 	 console.log(lon);
-	 var test = 1;
  } else if (whichbox == 2){
 	 var aadress2 = e.detail[0]["aadress"];
 	 inAadress2.setAddress(aadress2);
@@ -84,10 +82,23 @@ console.log(e.target.id);
 	 console.log(lat2);
 	 console.log(lon2);
  }
- data: { lat : lat };
  inAadress.hideResult();
  inAadress2.hideResult();
 });
+
+
+//Send into php
+function myFunction(lat, lon) {
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.onload = function() {
+
+    }
+	xmlhttp.open("GET", "info.php?q=" + lat);
+	window.location=("info.php?lat=" + lat + " " + lon + " " + lat2 + " " + lon2);
+	console.log(lat);
+  xmlhttp.send();
+}
+
 
 
 </script>

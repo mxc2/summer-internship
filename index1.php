@@ -1,12 +1,15 @@
 <?php
 session_start();
 $inputerror="";
+$LoadingMessage="";
 $a=null;
 $b=null;
 $c=null;
+$continue = null;
 $start="";
 $end="";
 if(isset($_POST["submit"])){
+	
     $a=$_POST["a"];
     $b=$_POST["b"];
     $c=$_POST["c"];
@@ -18,21 +21,19 @@ if(isset($_POST["submit"])){
     if($_POST["a"]<=0 or $_POST["b"]<=0 or $_POST["c"]<=0){
         $inputerror .= "Mõõdud peavad olema suuremad kui 0! <br>";
     }
-	//*'$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c))
-
-	if(($a*$a) + ($b*$b) + ($c*$c) > (60*60) + (36*36) + (60*60)){
-        $inputerror .= "Kuller <br>";
-    }
     if(empty($_POST["start"]) or empty($_POST["end"])){
         $inputerror .= "Sisesta mõlemad aadressid! ";
     }
     if(empty($inputerror)){
+		$inputerror .= "Otsime teile lähimaid pakiautomaate...";
+		
         $_SESSION["a"] = $_POST["a"];
         $_SESSION["b"] = $_POST["b"];
         $_SESSION["c"] = $_POST["c"];
         $_SESSION["start"] = $_POST["start"];
         $_SESSION["end"] = $_POST["end"];
-        header("Location: results.php");
+		
+		$continue .= 1;
     }
 }
 
@@ -48,6 +49,7 @@ if(isset($_POST["submit"])){
     <script src="script.js" defer></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     
+	<script type="text/javascript" src="https://inaadress.maaamet.ee/inaadress/js/inaadress.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
@@ -89,12 +91,24 @@ if(isset($_POST["submit"])){
                     <label for="c"></label>
                     <input type="number" id="c" name="c" placeholder="3. külg (cm)">
                     <label for="start"></label>
-                    <input type="text" id="start" name="start" placeholder="Narva mnt 127, Tallinn">
-                    <label for="end"></label>
-                    <input type="text" id="end" name="end" placeholder="Kivi 4, Tartu"><br>
-                    <input type="submit" name="submit" value="Leia parim pakiautomaat">
-                    
+                    <input type = 'text' id="InAadress" name="aadress1" >
+					<label for="start"></label>
+					<input type = 'text 'id="InAadress2" name="aadress2" >
+                    <input onclick="myFunction()" type="submit" name="submit" value="Leia parim pakiautomaat">					
+					
                 </form>
+				
+				<p><?php echo $LoadingMessage; 
+				if($continue == 1){
+					header( "refresh:1; url=results.php" );
+					echo '<div id="lock-modal"></div>';
+					echo '<div id="loading-circle"></div>';
+				}
+				?></p>
+				<script>function myFunction() {
+				  document.getElementById("lock-modal").style.display = "block";
+				  document.getElementById("loading-circle").style.display = "block";
+				}</script>
                 <p><?php echo $inputerror; ?></p>
             </div>
         </div>
@@ -167,7 +181,7 @@ if(isset($_POST["submit"])){
 	
 	<button class="accordion">Kas pakki on võimalik saata rahvusvaheliselt?</button>
     <div class="panel">
-        <p>Antud süsteem võimaldab saata pakki ainult Eestis.</p>
+        <p>Antud süsteem võimaldab saata pakke ainult Eestis.</p>
     </div>
 	
 	<button class="accordion">Kuidas saata mitut pakki korraga?</button>
@@ -234,4 +248,13 @@ if(isset($_POST["submit"])){
         }
     });
     }
+	
+	var inAadress = new InAadress({"container":"InAadress","mode":"3","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
+	
+	var inAadress2 = new InAadress({"container":"InAadress2","mode":"3","nocss":false,"appartment":0,"ihist":"2014","lang":"et"});
+	
+	function myFunction() {
+	  document.getElementById("lock-modal").style.display = "block";
+	  document.getElementById("loading-circle").style.display = "block";
+	}
 </script>

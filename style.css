@@ -7,6 +7,46 @@ body{
     font-family: 'Quicksand', sans-serif;
     
 }
+
+/* Animation for searching */
+
+#loading-circle {
+    position: absolute;
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    animation: spin 0.8s ease-in infinite;
+    z-index:99999;
+}
+#lock-modal {
+    background-color: black;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index:9999;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* Esilehel div, et taust oleks header'il ja section1'l sama */
 #container{
     background-image: url('img/taust.png');
@@ -135,6 +175,11 @@ h1{
     0 100px 80px rgba(0, 0, 0, 0.12);
 }
 /* Formi vormistus */
+#formInputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 #form{
     padding: 30px 60px 30px 60px;
 }
@@ -179,6 +224,19 @@ input[type=submit]:hover{
     align-items: center;
     text-shadow: 2px 2px 10px #555555;
 }
+
+.inAadressLogo{
+	display: none;
+}
+
+.inAadressCopyright{
+	display: none;
+}
+
+.ui-input-btn{
+	display: none;
+}
+
 /* Esilehe shape divider */
 .custom-shape-divider-bottom-1623233967 {
     position: absolute;
@@ -318,7 +376,7 @@ input[type=submit]:hover{
 
 /* Results'i lehe sektsioon ja esimeen kast */
 #section10{
-    min-height: 93vh;
+    min-height: calc(100vh - 300px);
     width: 100%;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -381,16 +439,17 @@ td{
     font-family: inherit;
     font-size: 15px;
     width: 100%;
-    transition: background-color 0.5s;
+    justify-content: center;
+    display: flex;
 }
 .vormista:hover{
     background-color: rgba(44, 116, 74, 0.9);
     cursor: pointer;
 }
-.vormista a:link{
+a:link{
     color: white;
 }
-.vormista a:visited{
+a:visited{
     color: white;
 }
 /* Tagasi esilehele nupp */
@@ -424,6 +483,7 @@ td{
 #footer{
     background-color:rgb(136, 161, 153, 0.8);
     width: 100%;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -452,7 +512,7 @@ td{
     width: 100%;
     background-color: rgb(95, 96, 99);
     color: white;
-    height: 50px;
+    height: 58.3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -462,7 +522,7 @@ td{
 
 
 /* Väiksemate ekraanide vaated */
-/* @media only screen and (max-width: 1000px) {
+ @media only screen and (max-width: 1000px) {
     [id="info"] {
         margin-left: 30px;
         margin-right: 30px;
@@ -539,41 +599,6 @@ td{
     [id="table"]{
         justify-content:flex-start !important;
     }
-} */
+}
 
-/* Animation for searching */
-#loading-circle {
-    position: absolute;
-    top: 100px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 120px;
-    height: 120px;
-    border: 10px solid #f3f3f3;
-    border-top: 10px solid #3498db;
-    border-radius: 50%;
-    animation: spin 0.8s ease-in infinite;
-    z-index:99999;
-}
-#lock-modal {
-    background-color: black;
-    opacity: 0.8;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    z-index:9999;
-}
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
+

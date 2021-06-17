@@ -22,9 +22,7 @@ $database = "if20_marcus_praktika";
 </head>
 <body>
 
-
-
-
+<!-- header -->
 <div id="navResults">
     <div id="head1results">
         <a href=http://greeny.cs.tlu.ee/~steltam/suvepraktika>
@@ -40,10 +38,10 @@ $database = "if20_marcus_praktika";
 </div>
 
 
-    
+<!-- terve lehe sektsioon -->
 <section id="section10">
 
-
+    <!-- sessioonimuutujatest tulevad andmed näidatakse kastis -->
     <div id="enteredsize"><h2>Tulemused pakile suurusega: 
         <?php if (!empty($_SESSION['start'])){
             echo $_SESSION['a']; ?> cm × <?php echo $_SESSION['b']; ?> cm × <?php echo $_SESSION['c'];?> cm<br>
@@ -51,22 +49,25 @@ $database = "if20_marcus_praktika";
             <?php echo $_SESSION['start']; ?> &rarr; <?php echo $_SESSION['end'];}?></h2>
     </div>
 		
+    <!-- tabelina näidatakse kõik tulemused, kutsutakse välja funktsioonid tabeli kuvamiseks -->
     <div id="table">
         <?php 
             if (!empty($_SESSION['start'])){
-                $data = dataProcess(($_SESSION['start']), (($_SESSION['end'])));}
+                $data = dataProcess(($_SESSION['start']), ($_SESSION['end']));}
             if (!empty($_SESSION['start'])){
                 echo readresults($data, $_SESSION['weight']);} 
         ?>
     </div>
-    <button id="backToFP"><a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika">Tagasi esilehele</a></button>
+
+    <!-- tagasi esilehele nupp -->
+    <a href="http://greeny.cs.tlu.ee/~steltam/suvepraktika"><button id="backToFP">Tagasi esilehele</button></a>
 
 
 </section>
 
 
 
-
+<!-- kutsub footer'i välja -->
 <?php
     require("footer.php");
 ?>

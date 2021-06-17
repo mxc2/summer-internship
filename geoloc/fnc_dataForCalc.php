@@ -203,9 +203,6 @@ if ($distanceToCompare==1000){
     $userB = $_SESSION['b'];
     $userC = $_SESSION['c'];
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-	$omnivaCounter = 0;
-	$itellaCounter = 0;
-	$dpdCounter = 0;
 
     $stmt = $conn->prepare("SELECT firma, suurus, max_kaal, MIN(hind), a, b, c FROM pakid WHERE 
     '$userA'<a AND '$userB'<b AND '$userC'<c AND  max_kaal >= '$weight' OR 
@@ -213,8 +210,7 @@ if ($distanceToCompare==1000){
     '$userB'<a AND '$userC'<b AND '$userA'<c AND  max_kaal >= '$weight' OR 
     '$userB'<a AND '$userA'<b AND '$userC'<c AND  max_kaal >= '$weight' OR 
     '$userC'<a AND '$userA'<b AND '$userB'<c AND  max_kaal >= '$weight' OR 
-    '$userC'<a AND '$userB'<b AND '$userA'<c AND  max_kaal >= '$weight' OR
-	(('$userA'*'$userA') + ('$userB'*'$userB') + ('$userC'*'$userC') <= (a*a) + (b*b) + (c*c)) AND  max_kaal >= '$weight'
+    '$userC'<a AND '$userB'<b AND '$userA'<c AND  max_kaal >= '$weight'
     GROUP BY firma ORDER BY hind");
     echo $conn->error;
 
@@ -236,66 +232,41 @@ if ($distanceToCompare==1000){
 						</tr>";
     while($stmt->fetch()){
         $resultshtml .= "<tr><td>" .$firma ."</td><td>" ;
-		if ($userA<$parcelA && $userB<$parcelB && $userC<$parcelC || 
-			$userA<$parcelA && $userC<$parcelB && $userB<$parcelC || 
-			$userB<$parcelA && $userC<$parcelB && $userA<$parcelC || 
-			$userB<$parcelA && $userA<$parcelB && $userC<$parcelC || 
-			$userC<$parcelA && $userA<$parcelB && $userB<$parcelC || 
-			$userC<$parcelA && $userB<$parcelB && $userA<$parcelC){
 			
-			$resultshtml .= $suurus ."</td><td>";
-			
-			if($firma == "Omniva"){
-				$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
-				."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
-				."</td><td>";
-			}else if($firma == "Itella"){
-				$resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
-				."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
-				."</td><td>";
-			}else if($firma == "DPD"){
-				$resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
-				."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
-				."</td><td>";
-			}else{
-				$resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
-			}
+		$resultshtml .= $suurus ."</td><td>";
+		
+		if($firma == "Omniva"){
+			$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
+			."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
+			."</td><td>";
+		}else if($firma == "Itella"){
+			$resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
+			."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
+			."</td><td>";
+		}else if($firma == "DPD"){
+			$resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
+			."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
+			."</td><td>";
 		}else{
-			 $resultshtml .= $suurus ." **</td><td>";
-
-
-			if($firma == "Omniva"){
-				$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
-				."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
-				."</td><td>";
-			}else if($firma == "Itella"){
-				$resultshtml .= $data['itellaAddressStart']. "<br>" .$data['itellaDistanceStart'] 
-				."</td><td>" .$data['itellaAddressEnd'] ."<br>" .$data['itellaDistanceEnd']  
-				."</td><td>";
-			}else if($firma == "DPD"){
-				$resultshtml .= $data['dpdAddressStart']. "<br>" .$data['dpdDistanceStart'] 
-				."</td><td>" .$data['dpdAddressEnd'] ."<br>" .$data['dpdDistanceEnd']  
-				."</td><td>";
-			}else{
-				$resultshtml .= "ERROR</div> <div class='cell fourth'>ERROR <br></div> <div class='cell fifth'>";
-			}
+			$resultshtml .= "ERROR</td><td>ERROR <br></td> <td>";
 		}
+		
         $resultshtml .= $max_kaal ."kg </td><td>" .$hind ."€ </td>";
 
 
         if($firma == "Omniva"){
-            $resultshtml.="<td><button class=vormista><a href=https://minu.omniva.ee/parcel/new>Vormista pakk</a></button></td>";
+            $resultshtml.="<td><a class=vormista href=https://minu.omniva.ee/parcel/new target='_blank'>Vormista</a></td>";
         }else if($firma == "Itella"){
-            $resultshtml.="<td><button class=vormista><a href=https://my.smartpost.ee/new_shipment/>Vormista pakk</a></button></td>";
+            $resultshtml.="<td><a class=vormista href=https://my.smartpost.ee/new_shipment/ target='_blank'>Vormista</a></td>";
         }else if($firma == "DPD"){
-            $resultshtml.="<td><button class=vormista><a href=https://telli.dpd.ee/>Vormista pakk</a></button></td>";
+            $resultshtml.="<td><a class=vormista href=https://telli.dpd.ee/ target='_blank'>Vormista</a></td>";
         }else{
             $resultshtml .= "<td>ERROR</td></tr>";
         }
 		
 
     }
-	$resultshtml .= "</table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>";
+	$resultshtml .= "</table></div>";
 	if ($resultshtml=="<table cellpadding='0 30'>
 						<tr>
 							<th>Firma</th>
@@ -305,13 +276,12 @@ if ($distanceToCompare==1000){
 							<th>Max kaal</th>
 							<th>Hind</th>
 							<th></th>
-						</tr></table></div><p>** - Antud pakiautomaati mahub pakk vaid diagonaalis</p>"){
-						$resultshtml = "<table cellpadding='0 30'><tr><th colspan='3'>Antud pakk on liiga suur või raske pakiautomaatide jaoks. Saate kasutada kullerteenust: </th></tr>";
-							$resultshtml .= "<tr><td width='33%'><a href=https://minu.omniva.ee/parcel/new><button class=vormista>Omniva</button></a></td>";
-							$resultshtml .= "<td width='33%'><button class=vormista ><a href=https://itella.ee/eraklient/kojuvedu/>Itella</a></button></td>";
-							$resultshtml .= "<td width='33%'><button class=vormista><a href=https://telli.dpd.ee/offer/list>DPD</a></button></td></tr>";
-							//$resultshtml .= "<tr><td> siin on omniva kuller <br> siin on dpd kuller <br> siin on itella kuller";
-							$resultshtml .= "</table></div>";
+						</tr></table></div>"){
+							$resultshtml = "<table cellpadding='0 30'><tr><th colspan='3'>Antud pakk on liiga suur või raske pakiautomaatide jaoks. Saate kasutada kullerteenust: </th></tr>";
+							$resultshtml .= "<tr><td width='33%'><a class=vormista href=https://minu.omniva.ee/parcel/new targer='_blank'>Omniva</a></td>";
+							$resultshtml .= "<td width='33%'><a class=vormista href=https://itella.ee/eraklient/kojuvedu/ target='_blank'>Itella</a></td>";
+							$resultshtml .= "<td width='33%'><a class=vormista href=https://telli.dpd.ee/offer/list target='_blank'>DPD</a></td></tr>";
+							$resultshtml .= "</table>";
 						}
 	
 	$stmt->close();
