@@ -1,23 +1,15 @@
 <?php
 require "vendor/autoload.php";
 $database = "if20_marcus_praktika";
-//$start = 'Aravete 15';//User input start address for calc
-//$end = 'Kollane 14a, Tartu';//User input end address for calc
 //Converts user input to a processable coordinate
 function geoCodeFinder($input){
-	//echo $input;
 	$geocoder = new \OpenCage\Geocoder\Geocoder("20054b22bd6f4929badb5d4a1d9080f2");//<--API key 20054b22bd6f4929badb5d4a1d9080f2 neccessary for gecoding//API key2, for just in case('da0c24be00f44f3a8fcb4da9d7cd8d47'), another one 388d369f44d14ec39e73894df210035c 5a7f44a78bf947aebdaaa1a484c50cfe
 	$result = $geocoder->geocode($input);
-	//print_r( $result);
 	if ($result && $result['total_results'] > 0) {
 		$first = $result['results'][0];
-
-
 		$txt = json_encode([$first['geometry']['lat'], $first['geometry']['lng']]);	//Gets coordinate	
 		$txt = trim($txt, '[]');//Changes the coordinate to processable one
 		$coords = explode(',', $txt);
-		//print_r ($coords);
-
 
 		return $coords;
 		
@@ -39,16 +31,15 @@ $dlon = $lon2 - $lon1;
 $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlon / 2) * sin($dlon / 2); 
 $c = 2 * atan2(sqrt($a), sqrt(1 - $a)); 
 $km = $r * $c; 
-//echo ' '.$km; 
 return $km; 
 }
+
 //Finds the nearest parcel machine to the user input
 function dataForCalc($location, $company) {
 
-
-	 //echo geoCodeFinder($location)[0];
-	//Converts user input to coordinates
+        //Controlls that the address is valid and gives coordinates
 	if ((geoCodeFinder($location))!==null){
+	  //Converts user input to coordinates
 	  $userStartLat = geoCodeFinder($location)[0];
 	  $userStartLon = geoCodeFinder($location)[1];
 	  if ($company =="omniva_machines"){
@@ -60,9 +51,8 @@ function dataForCalc($location, $company) {
 	//Connecting to database
 	  $notice = "<p>Error finding data.</p> \n";
 	  $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-	  //Selects needed tables from DB
+	  //Selects necessary tables from DB
 	  $conn->set_charset("utf8");
-	  //$SQLsentence = "select omniva_id, lon, lat from '$company'"; 
 	  $stmt = $conn->prepare("select $companyid, lon, lat from $company");
 	  
 	  $stmt->bind_result($idfromdb, $lonfromdb, $latfromdb);
@@ -73,10 +63,7 @@ function dataForCalc($location, $company) {
 	  $distanceToCompare = 1000;
 	  
 	  while($stmt->fetch()) {
-
-
-
-
+		//Calculates distance between 1)User input 2)all the parcel machine coordinates
 		$distance = distance($userStartLat, $userStartLon, $latfromdb, $lonfromdb);
 		//Finds the ID of nearest parcel machine
 		if ($distance < $distanceToCompare){
@@ -85,6 +72,7 @@ function dataForCalc($location, $company) {
 		}
 		
 	  }
+	   //Checks whether we're dealing with km or m
 	   if ($distanceToCompare < 1){
 		  $distanceToCompare = round($distanceToCompare*1000) ." m";
 	  }else{
@@ -95,6 +83,7 @@ function dataForCalc($location, $company) {
 	  $data['company'] = $company;
 	  $stmt->close();
 	  $conn->close();
+	//If address is not valid
 	}else{
 		echo'<span style="font-size:30px;"> Aadressiga esines viga. </span>';
 		
@@ -110,9 +99,8 @@ if ($distanceToCompare==1000){
 
 
 //}
-  
+  //Takes parcel id and gives  corresponding address
  function getParcelAddress($parcel_ID, $company){
-	 //echo $parcel_ID;
 	 if ($company =="omniva_machines"){
 		  $companyid = "omniva_id";
 	  }else{
@@ -123,7 +111,6 @@ if ($distanceToCompare==1000){
 	  //Selects needed tables from DB
 	  $conn->set_charset("utf8");
 	  
-	  //$SQLsentence = "select omniva_id, kauplus, maakond, valla_nimi, linn, aadress, number from omniva_machines ";
 	  if ($company =='omniva_machines'){
 		  $stmt = $conn->prepare("select $companyid, kauplus, maakond, valla_nimi, linn, aadress, number from $company ");
 		  $stmt->bind_result($idfromdb, $kauplusfromdb, $maakondfromdb, $valdfromdb, $linnfromdb, $aadressfromdb, $numberfromdb);
@@ -137,7 +124,6 @@ if ($distanceToCompare==1000){
 	  $aadress = "";
 	  
 	  while($stmt->fetch()) {
-
 
 		if ($parcel_ID==$idfromdb){
 			$aadress = $kauplusfromdb ." " .$maakondfromdb;
@@ -153,11 +139,10 @@ if ($distanceToCompare==1000){
 	  $conn->close();
 	  return $aadress;
  }
+  // All of the data proccessing starts from here
   function dataProcess($start, $end){
-
-
   //--------------------StartData----------------------------
-  //Some data
+  //Data of the nearest parcel machine
   $omnivaPropStart = dataForCalc($start, 'omniva_machines');
   $itellaPropStart = dataForCalc($start, 'itella');
   $dpdPropStart = dataForCalc($start, 'dpd');
@@ -203,7 +188,7 @@ if ($distanceToCompare==1000){
     $userB = $_SESSION['b'];
     $userC = $_SESSION['c'];
     $conn = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $GLOBALS["database"]);
-
+    //With this we find the cheapest parcel service for each company
     $stmt = $conn->prepare("SELECT firma, suurus, max_kaal, MIN(hind), a, b, c FROM pakid WHERE 
     '$userA'<a AND '$userB'<b AND '$userC'<c AND  max_kaal >= '$weight' OR 
     '$userA'<a AND '$userC'<b AND '$userB'<c AND  max_kaal >= '$weight' OR 
@@ -219,7 +204,7 @@ if ($distanceToCompare==1000){
     $stmt->execute();
 
 
-	//
+    //Creates table for the potential parcel services with prices
     $resultshtml = "<table cellpadding='0 30'>
 						<tr>
 							<th>Firma</th>
@@ -230,11 +215,12 @@ if ($distanceToCompare==1000){
 							<th>Hind</th>
 							<th></th>
 						</tr>";
+    //When potential service found then into the loop
     while($stmt->fetch()){
         $resultshtml .= "<tr><td>" .$firma ."</td><td>" ;
 			
 		$resultshtml .= $suurus ."</td><td>";
-		
+		//Checks which company
 		if($firma == "Omniva"){
 			$resultshtml .= $data['omnivaAddressStart']. "<br>" .$data['omnivaDistanceStart'] 
 			."</td><td>" .$data['omnivaAddressEnd'] ."<br>" .$data['omnivaDistanceEnd']  
@@ -253,7 +239,7 @@ if ($distanceToCompare==1000){
 		
         $resultshtml .= $max_kaal ."kg </td><td>" .$hind ."€ </td>";
 
-
+	//Adds links to the service
         if($firma == "Omniva"){
             $resultshtml.="<td><a class=vormista href=https://minu.omniva.ee/parcel/new target='_blank'>Vormista</a></td>";
         }else if($firma == "Itella"){
@@ -267,6 +253,7 @@ if ($distanceToCompare==1000){
 
     }
 	$resultshtml .= "</table></div>";
+	 //If no services found then gives courier links
 	if ($resultshtml=="<table cellpadding='0 30'>
 						<tr>
 							<th>Firma</th>
