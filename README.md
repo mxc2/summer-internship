@@ -3,7 +3,7 @@
 
 
 
-# Suvepraktika teemal Pakikulude optimeerimine : Parimautomaat
+# Suvepraktika teemal "Pakikulude optimeerimine: Parimautomaat"
 
 ### Eesmärk ja lühikirjeldus
 
