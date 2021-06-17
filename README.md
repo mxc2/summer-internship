@@ -7,7 +7,7 @@
 
 ### Eesmärk ja lühikirjeldus
 
-Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames oli meie eesmärgiks luua veebileht, mis laseks tavalisel inimesel saata pakke pakiautomaatidega nii odavalt kui võimalik. Suvepraktika perioodiga tõime ellu veebilehe nimega Parimautomaat, mis laseb kasutajal sisestada paki mõõdud, alg- ja lõppasukoht, ning nende järgi arvutab meie süsteem odavaima transpordifirma, millega saata nimetatud pakki. Süsteem töötab muutes sisestatud aadressid kordinaatideks ning siis võtab andmebaasist pakiautomaatide kordinaadid ja arvutab nende vahemaad kasutaja sisestatud aadressitega (mis on nüüd siis kordinaatideks muudetud). Tulemused annab välja süsteem tulemuste lehel, kus on näidatud iga transpordifirma odavaimat viisi saata nimetatud pakki.
+Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames oli meie eesmärgiks luua veebileht, mis laseks inimesel saata pakke pakiautomaatidega nii odavalt kui võimalik. Suvepraktika perioodil tegime veebilehe nimega Parimautomaat, mis laseb kasutajal sisestada paki mõõdud, kaalu, alg- ja lõppasukoha, ning nende järgi arvutab meie süsteem odavaima transpordifirma, millega seda pakki saata. Süsteem töötab muutes sisestatud aadressid koordinaatideks. Seejärel võtab andmebaasist pakiautomaatide koordinaadid ja arvutab nende vahemaad kasutaja sisestatud aadressidest (mis on kordinaatideks muudetud). Tulemused annab süsteem välja tulemuste lehel, kus on näidatud iga transpordifirma odavaimat viisi saata nimetatud pakki.
 
 ### Kasutatud tarkvara ja versioonid
 
@@ -25,7 +25,7 @@ Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames o
 
 •Ajax v.puudub
 
-### Projektisse panustajad
+### Projekti panustajad
 Marcus-Indrek Simmer, 
 Stella-Marii Tamme, 
 Margen Peterson, 
