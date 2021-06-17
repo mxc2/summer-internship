@@ -40,7 +40,7 @@ Andmebaasi saab koostada kahe viisiga.
 1) Importi dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql phpMyAdminiga andmebaasi.
 2) Ava iga fail ja kopeeri igas failis olevad "CREATE TABLE..., INSERT INTO...., ALTER TABLE...," MySql-i selles järjekorras kuidas need faili on kirjutatud, ning üksaaval.
 
-Järgmiseks tuleb laadida kõik projekti failid serverisse või arvutisse, mis toetab kõiki kasutatud tarkvarasid. Et enda andmebaase kasutada, tuleb muuta $database = "if20_marcus_praktika" mõnedes .php failides enda andmebaasiks. Lisaks tuleb config.php failis @serverhost, @serverUsername ja @serverPassword enda andmebaasi järgi muuta. 
+Järgmiseks tuleb laadida kõik projekti failid serverisse või arvutisse, mis toetab kõiki kasutatud tarkvarasid. Et enda andmebaase kasutada, tuleb muuta $database = "if20_marcus_praktika" mõnedes .php failides enda andmebaasiks. Turvalisuse huvides, tuleb teil teha enda config fail mis kosneb @serverhost, @serverUsername ja @serverPassword -ist, ning see config fail peab paiknema 2 directoryt enne projekti faile. (Loogilises mõttes, enne public_html-i)
 
 Et veebilehte avada, tuleb avada index.php ja et süsteemihaldurit avada, tuleb avada "SystemMaintancePage" folderis index.php.
 
