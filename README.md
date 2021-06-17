@@ -5,7 +5,7 @@
 
 # Suvepraktika teemal "Pakikulude optimeerimine: Parimautomaat"
 
-![Image of our page](https://i.imgur.com/SOvrLyi.png)
+![Image of our page](https://github.com/stellamarii/suvepraktika/blob/main/GitHubImages/main.png?raw=true)
 
 ### Eesmärk ja lühikirjeldus
 
