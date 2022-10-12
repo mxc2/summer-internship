@@ -3,15 +3,15 @@
 
 
 
-# Suvepraktika teemal "Pakikulude optimeerimine: Parimautomaat"
+# Summer internship on "Optimization of Shipping Costs: Parimautomaat"
 
 ![Image of our page](https://github.com/stellamarii/suvepraktika/blob/main/GitHubImages/main.png?raw=true)
 
-### Eesmärk ja lühikirjeldus
+### Purpose and brief description
 
-Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames oli meie eesmärgiks luua veebileht, mis laseks inimesel saata pakke pakiautomaatidega nii odavalt kui võimalik. Suvepraktika perioodil tegime veebilehe nimega Parimautomaat, mis laseb kasutajal sisestada paki mõõdud, kaalu, alg- ja lõppasukoha, ning nende järgi arvutab meie süsteem odavaima transpordifirma, millega seda pakki saata. Süsteem töötab muutes sisestatud aadressid koordinaatideks. Seejärel võtab andmebaasist pakiautomaatide koordinaadid ja arvutab nende vahemaad kasutaja sisestatud aadressidest (mis on kordinaatideks muudetud). Tulemused annab süsteem välja tulemuste lehel, kus on näidatud iga transpordifirma odavaimat viisi saata nimetatud pakki.
+As part of the software project course of the Digital Technology Institute of Tallinn University, our goal was to create a website that would allow people to send parcels with parcel machines as cheaply as possible. During the summer internship period, we made a website called Parimautomaat, which allows the user to enter the dimensions, weight, starting and final location of the package, and based on these, our system calculates the cheapest transport company with which to send the package. The system works by converting entered addresses into coordinates. It then takes the coordinates of the parcel machines from the database and calculates their distance from the addresses entered by the user (which have been converted into coordinates). The results are given by the system on the results page, which shows the cheapest way of sending the specified package for each transport company.
 
-### Kasutatud tarkvara ja versioonid
+### Used software and versions
 
 •Opencagedata Geocoding API
 
@@ -27,22 +27,22 @@ Tallinna Ülikooli Digitehnoloogia instituudi tarkvara projekti kursuse raames o
 
 •Ajax v.puudub
 
-### Projekti panustajad
+### Contributors to the project
 Marcus-Indrek Simmer, 
 Stella-Marii Tamme, 
 Margen Peterson, 
 Margarita Zahharova
 
-### Paigaldusjuhised
-Et lehte paigaldada enda lehele, soovitame me esiteks alustada andmebaasi koostamisega. Dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql leiab rootis asuvast kaustast nimega "ToDatabase".
+### Installation instructions
+Et projekti paigaldada enda lehele, soovitame me esiteks alustada andmebaasi koostamisega. Dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql leiab rootis asuvast kaustast nimega "ToDatabase".
 
-Andmebaasi saab koostada kahe viisiga.
-1) Importi dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql phpMyAdminiga andmebaasi.
-2) Ava iga fail ja kopeeri igas failis olevad "CREATE TABLE..., INSERT INTO...., ALTER TABLE...," MySql-i selles järjekorras kuidas need faili on kirjutatud, ning üksaaval.
+There are two ways to create a database.
+1) Import dpd.sql, itella.sql, omniva_machines.sql, pakid.sql and accounts.sql into the database with phpMyAdmin.
+2) Open each file and copy the "CREATE TABLE..., INSERT INTO...., ALTER TABLE...," in each file to MySql in the order they were written to the file, one at a time.
 
-Järgmiseks tuleb laadida kõik projekti failid serverisse või arvutisse, mis toetab kõiki kasutatud tarkvarasid. Et enda andmebaase kasutada, tuleb muuta $database = "if20_marcus_praktika" mõnedes .php failides enda andmebaasiks. Turvalisuse huvides, tuleb teil teha enda config fail mis kosneb @serverhost, @serverUsername ja @serverPassword -ist, ning see config fail peab paiknema 2 directoryt enne projekti faile. (Loogilises mõttes, enne public_html-i)
+Next, all project files must be uploaded to a server or a computer that supports all used software. To use your own databases, you need to change $database = "if20_marcus_praktika" to your own database in some .php files. For security reasons, you must make your own config file consisting of @serverhost, @serverUsername and @serverPassword, and this config file must be located 2 directories before the project files. (Logically, before public_html)
 
-Et veebilehte avada, tuleb avada index.php ja et süsteemihaldurit avada, tuleb avada "SystemMaintancePage" folderis index.php.
+To open the web page, you need to open index.php, and to open the system manager, you need to open "SystemMaintancePage" in the index.php folder.
 
 ### License
 ![Image of Copyright](https://camo.githubusercontent.com/9e918e1e7cd28a73246cf1c8d2c9903da3e487a65931c823a2391afe4b4a0d04/68747470733a2f2f6c6963656e7365627574746f6e732e6e65742f702f7a65726f2f312e302f38387833312e706e67)
