@@ -37,11 +37,12 @@ Developer: Margen Peterson
 UI Designer: Margarita Zahharova
 
 ### Installation instructions
-Et projekti paigaldada enda lehele, soovitame me esiteks alustada andmebaasi koostamisega. Dpd.sql, itella.sql, omniva_machines.sql, pakid.sql ja accounts.sql leiab rootis asuvast kaustast nimega "ToDatabase".
+To install the project on your own website, we recommend starting by creating the database. You can find the files Dpd.sql, itella.sql, omniva_machines.sql, pakid.sql, and accounts.sql in the root directory named "ToDatabase".
 
 There are two ways to create a database.
-a) Import dpd.sql, itella.sql, omniva_machines.sql, pakid.sql and accounts.sql into the database with phpMyAdmin.
-b) Open each file and copy the "CREATE TABLE..., INSERT INTO...., ALTER TABLE...," in each file to MySql in the order they were written to the file, one at a time.
+
+1) Import dpd.sql, itella.sql, omniva_machines.sql, pakid.sql and accounts.sql into the database with phpMyAdmin.
+2) Open each file and copy the "CREATE TABLE..., INSERT INTO...., ALTER TABLE...," in each file to MySql in the order they were written to the file, one at a time.
 
 Next, all project files must be uploaded to a server or a computer that supports all used software. To use your own databases, you need to change $database = "if20_marcus_praktika" to your own database in some .php files. For security reasons, you must make your own config file consisting of @serverhost, @serverUsername and @serverPassword, and this config file must be located 2 directories before the project files. (Logically, before public_html)
 
